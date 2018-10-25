@@ -17,7 +17,8 @@ config.dev = !(app.env === 'production')
 
 app.use(bodyParser())
 app.use(Response)
-app.use(routes())
+// app.use(AuthController.routes())
+routes(app)
 
 async function start () {
   // Instantiate nuxt.js
