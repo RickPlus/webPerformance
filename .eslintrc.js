@@ -17,7 +17,8 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    "vue/no-parsing-error": [2, { "x-invalid-end-tag": false }],
+    'no-return-await': 'off',
+    'vue/no-parsing-error': [2, { "x-invalid-end-tag": false }],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
