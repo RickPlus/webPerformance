@@ -10,7 +10,8 @@
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "model": "node model.js"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
@@ -23,7 +24,10 @@
     "koa-jwt": "^3.5.1",
     "koa-multer": "^1.0.2",
     "koa-router": "^7.4.0",
-    "nuxt": "^2.0.0"
+    "mysql": "^2.16.0",
+    "mysql2": "^1.6.1",
+    "nuxt": "^2.0.0",
+    "sequelize": "^4.41.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
@@ -44,6 +48,7 @@
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "nodemon": "^1.11.0",
-    "prettier": "1.14.3"
+    "prettier": "1.14.3",
+    "sequelize-auto": "^0.4.29"
   }
 }

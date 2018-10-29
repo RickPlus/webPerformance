@@ -3,7 +3,7 @@ require('babel-register')
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const routes = require('./routes')
-const Response = require('./middlewares/response')
+const Response = require('./middlewares/Response')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
@@ -17,7 +17,6 @@ config.dev = !(app.env === 'production')
 
 app.use(bodyParser())
 app.use(Response)
-// app.use(AuthController.routes())
 routes(app)
 
 async function start () {

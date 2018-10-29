@@ -1,5 +1,6 @@
 const dir = 'controllers'
 const fs = require('fs')
+const consola = require('consola')
 
 // add url-route in /controllers:
 
@@ -9,10 +10,11 @@ const readDir = app => {
       return f.endsWith('.js')
     })
     .forEach(f => {
-      console.log(`process controller: ${f}...`)
-      let routerController = require(`${__dirname}/${dir}/${f}`).default || require(`${__dirname}/${dir}/${f}`)
-      // console.log(routerController)
-      app.use(routerController.routes())
+      consola.ready({
+        message: `Init controller: ${f}...`
+      })
+      let controller = require(`${__dirname}/${dir}/${f}`)
+      app.use((controller.default || controller).routes())
     })
 }
 

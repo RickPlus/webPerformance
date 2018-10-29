@@ -1,4 +1,5 @@
 import KoaRouter from 'koa-router'
+import consola from 'consola'
 
 export const Controller = (opt) => {
   let router = new KoaRouter()
@@ -29,6 +30,18 @@ export const Request = ({ url, method }) => {
       router[method](url, async (ctx, next) => {
         await fn(ctx, next)
       })
+    }
+  }
+}
+
+export const TryCatch = (target, name, descriptor) => {
+  let fn = descriptor.value
+  descriptor.value = async function (...args) {
+    try {
+      return await fn.call(this, ...args)
+    } catch (e) {
+      consola.error(e)
+      return new Error(e)
     }
   }
 }

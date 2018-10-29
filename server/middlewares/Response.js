@@ -1,14 +1,23 @@
-const JWT = require('../utils/jwt')
+import JWT from '../utils/jwt'
+import Message from '../utils/esum/Message'
+
+const result = (ctx) => {
+  success(ctx)
+  if (ctx.state.data && ctx.state.data.constructor === Error) {
+    fail(ctx, ctx.state.data)
+  } else {
+    success(ctx)
+  }
+}
 
 const success = ctx => {
   // 处理响应结果
   // 如果直接写入在 body 中，则不作处理
   // 如果写在 ctx.body 为空，则使用 state 作为响应
-  ctx.body = ctx.body || {
-    code: ctx.state.code !== undefined ? ctx.state.code : 1,
-    data: ctx.state.data !== undefined ? ctx.state.data : {},
-    message: '成功'
-  }
+  ctx.body = ctx.body || Object.assign(
+    Message.Success,
+    { data: ctx.state.data !== undefined ? ctx.state.data : {} }
+  )
 }
 
 const fail = (ctx, e) => {
@@ -16,14 +25,17 @@ const fail = (ctx, e) => {
   ctx.status = 200
 
   // 输出详细的错误信息
-  ctx.body = {
-    code: e.code || 0,
-    data: null,
-    message: e && e.message ? e.message : e.toString()
-  }
+  ctx.body = Object.assign(
+    Message.Error,
+    {
+      code: e.code || 0,
+      data: null,
+      message: e && e.message ? e.message : e.toString()
+    }
+  )
 }
 
-const unLogin = (ctx, obj = { code: -1, message: '用户未登录' }) => {
+const unLogin = (ctx, obj = Message.NotLogin) => {
   fail(ctx, obj)
 }
 
@@ -44,7 +56,7 @@ module.exports = async (ctx, next) => {
         let payload = await JWT.verify(token)
         if (payload) {
           await next()
-          success(ctx)
+          result(ctx)
         } else {
           unLogin(ctx)
         }
@@ -52,13 +64,13 @@ module.exports = async (ctx, next) => {
         fail(
           ctx,
           e.message === 'jwt expired'
-            ? { code: -1, message: 'token验证过期' }
+            ? Message.Expired
             : e
         )
       }
     }
   } else {
     await next()
-    success(ctx)
+    result(ctx)
   }
 }
