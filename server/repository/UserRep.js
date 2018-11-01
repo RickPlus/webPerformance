@@ -1,15 +1,13 @@
-import mysql from '../utils/mysql'
-import Sequelize from 'sequelize'
 import { TryCatch } from '../utils/decorator'
+import User from '../models/User'
 
-const User = require('../models/user')(mysql, Sequelize)
+// User.tableName = 'user_copy'
 
 export default class UserRep {
   @TryCatch
   static async findById (id) {
     return await User.findOne({
-      where: { id: id },
-      attributes: [`created`]
+      where: { id: id }
     })
   }
 

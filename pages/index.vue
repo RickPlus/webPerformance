@@ -6,6 +6,13 @@
 
 <script>
 export default {
+  head () {
+    return {
+      script: [
+        { src: '/p.js', type: 'text/javascript' }
+      ]
+    }
+  },
   components: {}
 }
 </script>
