@@ -1,5 +1,7 @@
-import { Controller, Method, Request } from '../utils/decorator'
-import JWT from '../utils/jwt'
+import { Base64 } from 'js-base64'
+import { Controller, Method, Request } from '../../utils/server/decorator'
+import JWT from '../../utils/server/jwt'
+import Message from '../../utils/server/esum/Message'
 import UserRep from '../repository/UserRep'
 
 @Controller({ prefix: '/open' })
@@ -7,17 +9,12 @@ export default class AuthController {
   @Request({ url: '/login', method: Method.POST })
   async hello (ctx) {
     let userInfo = ctx.request.body
-    let token = JWT.sign(userInfo)
-    ctx.state.data = token
-  }
-
-  @Request({ url: '/list', method: Method.GET })
-  async list (ctx) {
-    ctx.state.data = await UserRep.findAll()
-  }
-
-  @Request({ url: '/:id', method: Method.GET })
-  async detail (ctx) {
-    ctx.state.data = await UserRep.findById(ctx.params.id)
+    let user = await UserRep.findByName(userInfo.name, ['password'])
+    if (user && user.password === Base64.encode(Base64.encode(userInfo.password))) {
+      let token = JWT.sign(userInfo)
+      ctx.state.data = token
+    } else {
+      ctx.body = Message.LoginFail
+    }
   }
 }

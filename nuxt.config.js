@@ -29,7 +29,11 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [{ src: '~plugins/iview', ssr: true }],
+  plugins: [
+    { src: '~plugins/axios', ssr: true },
+    { src: '~plugins/iview', ssr: true },
+    { src: '~plugins/client', ssr: false }
+  ],
 
   /*
   ** Nuxt.js modules
@@ -52,7 +56,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
+    extend (config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
@@ -61,6 +65,7 @@ module.exports = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
+        config.devtool = 'eval-source-map'
       }
     }
   }

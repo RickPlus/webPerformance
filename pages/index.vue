@@ -1,10 +1,11 @@
 <template>
   <section class="container">
-    <Button>Default</Button>
+    <Button @click="getInfo">Default</Button>
   </section>
 </template>
 
 <script>
+
 export default {
   head () {
     return {
@@ -13,7 +14,15 @@ export default {
       ]
     }
   },
-  components: {}
+  mounted () {
+    console.log(this.$store.state)
+  },
+  components: {},
+  methods: {
+    getInfo () {
+      this.$store.dispatch('auth/getCurrentUserInfo')
+    }
+  }
 }
 </script>
 

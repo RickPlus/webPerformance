@@ -1,6 +1,6 @@
-import { Controller, Method, Request } from '../utils/decorator'
+import { Controller, Method, Request } from '../../utils/server/decorator'
 
-@Controller({ prefix: '/api' })
+@Controller({ prefix: '/api/index' })
 export default class IndexController {
   @Request({ url: '/inward', method: Method.GET })
   async hello (ctx) {

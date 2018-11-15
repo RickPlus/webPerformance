@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize'
-import { mysql } from '../config'
+import { mysql } from '../../server/config/index'
 
 export default new Sequelize(
   mysql.database,

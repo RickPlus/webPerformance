@@ -1,5 +1,5 @@
-import JWT from '../utils/jwt'
-import Message from '../utils/esum/Message'
+import JWT from '../../utils/server/jwt'
+import Message from '../../utils/server/esum/Message'
 
 const result = (ctx) => {
   success(ctx)
@@ -45,8 +45,8 @@ const unLogin = (ctx, obj = Message.NotLogin) => {
 module.exports = async (ctx, next) => {
   let { url } = ctx.request
   // 调用下一个 middleware
-  // ************************** /api/open 的接口不通过token验证  其余接口全部需要通过token验证
-  if (url.includes('/api/inward')) {
+  // ************************** /open 的接口不通过token验证  /api接口全部需要通过token验证
+  if (url.includes('/api')) {
     // 用户验证
     const token = ctx.header.authorization // 格式：Bearer token
     if (!token) {

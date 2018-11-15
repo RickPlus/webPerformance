@@ -1,4 +1,5 @@
-import mysql from '../utils/mysql'
+import mysql from '../../utils/server/mysql'
+import { Base64 } from 'js-base64'
 import Sequelize from 'sequelize'
 
 const User = mysql.define('user', {
@@ -24,5 +25,19 @@ const User = mysql.define('user', {
   tableName: 'user'
 })
 
-User.sync()
+let pass = Base64.encode(Base64.encode('admin'))
+
+User.sync().then(async () => {
+  let admin = await User.findOne({
+    where: {
+      id: 1
+    }
+  })
+  if (!admin) {
+    User.create({
+      name: 'admin',
+      password: pass
+    })
+  }
+})
 export default User

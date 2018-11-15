@@ -8,7 +8,6 @@
       >
         <div class="form-con">
           <login-form @on-success-valid="handleSubmit" />
-          <p class="login-tip">输入任意用户名和密码即可</p>
         </div>
       </Card>
     </div>
@@ -16,14 +15,28 @@
 </template>
 
 <script>
-import LoginForm from '~/components/LoginForm'
+import LoginForm from '~/components/login/LoginForm'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   components: {
     LoginForm
   },
+  layout: 'blank',
+  computed: {
+    ...mapState('auth', ['token'])
+  },
   methods: {
-    handleSubmit () {}
+    async handleSubmit (data) {
+      await this.login(data)
+      // await this.$store.dispatch('auth/login')
+      if (this.token) {
+        window.Cookie.set('token', this.token)
+        await this.getCurrentUserInfo()
+        this.$router.push(this.$route.query.r || '/')
+      }
+    },
+    ...mapActions('auth', ['login', 'getCurrentUserInfo'])
   }
 }
 </script>

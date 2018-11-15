@@ -7,7 +7,7 @@
   >
     <FormItem prop="userName">
       <i-input
-        v-model="form.userName"
+        v-model="form.name"
         placeholder="请输入用户名"
       >
       <span slot="prepend">
@@ -45,7 +45,7 @@
 export default {
   name: 'LoginForm',
   props: {
-    userNameRules: {
+    nameRules: {
       type: Array,
       default: () => {
         return [{ required: true, message: '账号不能为空', trigger: 'blur' }]
@@ -61,7 +61,7 @@ export default {
   data () {
     return {
       form: {
-        userName: 'admin',
+        name: 'admin',
         password: ''
       }
     }
@@ -69,7 +69,7 @@ export default {
   computed: {
     rules () {
       return {
-        userName: this.userNameRules,
+        name: this.nameRules,
         password: this.passwordRules
       }
     }
@@ -79,7 +79,7 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.$emit('on-success-valid', {
-            userName: this.form.userName,
+            name: this.form.name,
             password: this.form.password
           })
         }

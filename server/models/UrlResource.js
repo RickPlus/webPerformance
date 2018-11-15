@@ -1,4 +1,4 @@
-import mysql from '../utils/mysql'
+import mysql from '../../utils/server/mysql'
 import Sequelize from 'sequelize'
 
 const UrlResource = mysql.define('urlResource', {
