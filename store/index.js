@@ -9,11 +9,15 @@ const store = () => new Vuex.Store({
   state: {},
   mutations: {},
   actions: {
-    async nuxtServerInit ({ commit, state, dispatch }, { req, res, route }) {
-      let token = req.headers.cookie ? Cookie.get('token', req.headers.cookie) : ''
-      if (token) {
-        commit('auth/SET_TOKEN', token)
-        dispatch('auth/getCurrentUserInfo')
+    async nuxtServerInit ({ commit, state, dispatch }, { req, redirect, route }) {
+      if (!route.fullPath.includes('/login')) {
+        let token = req.headers.cookie ? Cookie.get('token', req.headers.cookie) : ''
+        if (token) {
+          commit('auth/SET_TOKEN', token)
+          dispatch('auth/getCurrentUserInfo')
+        } else {
+          redirect(`/login?r=${route.fullPath}`)
+        }
       }
     }
   },

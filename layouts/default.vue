@@ -13,7 +13,7 @@
                 <Avatar :src="require('~/assets/images/home.gif')"></Avatar>
                 <Icon :size="18" type="md-arrow-dropdown"></Icon>
                 <DropdownMenu slot="list">
-                  <DropdownItem name="logout">退出登录</DropdownItem>
+                  <DropdownItem name="logout" @click.native="loginOut">退出登录</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </div>
@@ -35,7 +35,13 @@ export default {
   },
   data () {
     return {
-      collapsed: true
+      collapsed: false
+    }
+  },
+  methods: {
+    loginOut () {
+      window.Cookie.remove('token')
+      location.href = '/login'
     }
   }
 }
@@ -145,6 +151,10 @@ export default {
   max-height: 400px;
   a{
     color: #515a6e;
+    &.active{
+      color: #2d8cf0;
+      background: #363e4f;
+    }
   }
 }
 </style>

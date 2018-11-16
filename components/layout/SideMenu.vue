@@ -35,7 +35,7 @@
             </a>
             <DropdownMenu slot="list">
               <DropdownItem v-for="(sub, subIndex) in item.children" :key="subIndex">
-                <nuxt-link :to="sub.path">
+                <nuxt-link :to="sub.path" :class="{'active': `${index + 1}-${subIndex + 1}` === activeName}">
                   {{sub.name}}
                 </nuxt-link>
               </DropdownItem>
@@ -96,7 +96,7 @@ export default {
     activeName () {
       let { path } = this.$route
       let menu = this.menuFormat.find(o => o.path === path)
-      return menu.activeName
+      return menu.activeName || ''
     },
     openedNames () {
       let { path } = this.$route
