@@ -14,7 +14,7 @@ const store = () => new Vuex.Store({
         let token = req.headers.cookie ? Cookie.get('token', req.headers.cookie) : ''
         if (token) {
           commit('auth/SET_TOKEN', token)
-          dispatch('auth/getCurrentUserInfo')
+          await dispatch('auth/getCurrentUserInfo')
         } else {
           redirect(`/login?r=${route.fullPath}`)
         }

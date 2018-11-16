@@ -104,9 +104,6 @@ export default {
       return menu.openedNames || []
     }
   },
-  mounted () {
-    console.log(this.$route)
-  },
   methods: {
     handleSelect (name) {
       this.$emit('on-select', name)
