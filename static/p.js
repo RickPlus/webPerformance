@@ -1,29 +1,28 @@
-var PERFORMANCE_MONITOR = {
+const PERFORMANCE_MONITOR = {
   init: function () {
-    this.getPerformanceTime();
+    this.getPerformanceTime()
   },
   getPerformanceTime: function () {
-    this.performanceTime = window.performance.getEntriesByType('navigation')[0];
-    this.resourceTime = window.performance.getEntriesByType('resource');
-    console.log(this);
+    this.performanceTime = window.performance.getEntriesByType('navigation')[0]
+    this.resourceTime = window.performance.getEntriesByType('resource')
   },
   getPageTime: function () {
-    var time = this.performanceTime;
+    let { startTime, responseStart, loadEventEnd, domainLookupEnd, domainLookupStart, connectEnd, connectStart, domContentLoadedEventEnd, redirectEnd, redirectStart, responseEnd, domComplete } = this.performanceTime
     return {
       url: window.location.origin + window.location.pathname,
-      load_time: time.loadEventEnd - time.startTime,
-      white_time: time.responseStart - time.startTime,
-      dns_time: time.domainLookupEnd - time.domainLookupStart,
-      tcp_time: time.connectEnd - time.connectStart,
-      dom_time: time.domContentLoadedEventEnd - time.startTime,
-      redirect_time: time.redirectEnd - time.redirectStart,
-      resource_time: time.responseEnd - time.responseStart,
-      dom_ready_time: time.domComplete - time.startTime
+      load_time: loadEventEnd - startTime,
+      white_time: responseStart - startTime,
+      dns_time: domainLookupEnd - domainLookupStart,
+      tcp_time: connectEnd - connectStart,
+      dom_time: domContentLoadedEventEnd - startTime,
+      redirect_time: redirectEnd - redirectStart,
+      resource_time: responseEnd - responseStart,
+      dom_ready_time: domComplete - startTime
     }
   },
   getResourceTime: function () {
-    var time = this.resourceTime,
-      arr = [];
+    let time = this.resourceTime
+    let arr = []
     time.forEach(function (item) {
       arr.push({
 
@@ -32,7 +31,7 @@ var PERFORMANCE_MONITOR = {
   }
 }
 
-window.PERFORMANCE_MONITOR = window.PERFORMANCE_MONITOR ? Object.assign({}, window.PERFORMANCE_MONITOR, PERFORMANCE_MONITOR) : PERFORMANCE_MONITOR;
+window.PERFORMANCE_MONITOR = window.PERFORMANCE_MONITOR ? Object.assign({}, window.PERFORMANCE_MONITOR, PERFORMANCE_MONITOR) : PERFORMANCE_MONITOR
 window.onload = function () {
-  window.PERFORMANCE_MONITOR.init();
+  window.PERFORMANCE_MONITOR.init()
 }
