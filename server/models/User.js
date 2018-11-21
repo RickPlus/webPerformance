@@ -16,10 +16,6 @@ const User = mysql.define('user', {
   password: {
     type: Sequelize.STRING(100),
     allowNull: false
-  },
-  appId: {
-    type: Sequelize.INTEGER(64),
-    allowNull: true
   }
 }, {
   tableName: 'user'

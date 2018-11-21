@@ -15,7 +15,7 @@ export default {
       }
     },
     async getCurrentUserInfo ({ commit }) {
-      let { code, data } = await this.$axios.get('/api/user/current')
+      let { code, data } = await this.$axios.post('/api/user/current')
       if (code === 1) {
         commit('SET_UID', data.id)
         commit('SET_UNAME', data.name)

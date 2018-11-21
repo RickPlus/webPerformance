@@ -1,0 +1,80 @@
+<template>
+  <div class="pageSettingsAppId">
+    <p class="search-con">
+      <Button icon="md-add" type="primary" @click="modify">添加appId</Button>
+    </p>
+    <Table border :columns="tableType" :data="appIdTableList"></Table>
+    <Modal v-model="showConfirmModal" title="描述信息" @on-ok="confirm">
+      <Input v-model="appIdDesc" placeholder="描述"/>
+    </Modal>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'appId',
+  data () {
+    return {
+      tableType: [
+        {
+          title: '描述',
+          key: 'desc'
+        },
+        {
+          title: 'appId',
+          key: 'id'
+        },
+        {
+          title: '操作',
+          key: 'action',
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.modify(params)
+                  }
+                }
+              }, '编辑')
+            ])
+          }
+        }
+      ],
+      showConfirmModal: false,
+      appId: '',
+      appIdDesc: ''
+    }
+  },
+  computed: {
+    ...mapState('settings', ['appIdTableList'])
+  },
+  async fetch ({ store }) {
+    store.dispatch('settings/getAppIdTableList')
+  },
+  methods: {
+    modify (params) {
+      this.appId = params && params.row && params.row.id ? params.row.id : ''
+      this.appIdDesc = params && params.row && params.row.id ? params.row.desc : ''
+      this.showConfirmModal = true
+    },
+    confirm () {
+      let data = { desc: this.appIdDesc }
+      this.appId ? this.$store.dispatch('settings/modifyAppId', { ...data, id: this.appId }) : this.$store.dispatch('settings/addAppId', data)
+      this.showConfirmModal = false
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>

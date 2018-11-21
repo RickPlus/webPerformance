@@ -1,17 +1,17 @@
 <template>
   <Layout class="main" :style="{height: '100%'}">
-    <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
+    <Sider hide-trigger collapsible width="256" collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
       <side-menu :collapsed="collapsed"></side-menu>
     </Sider>
     <Layout>
       <Header class="header-con">
         <div class="header-bar">
-          <a @click="collapsed = !collapsed" type="text" :class="['side-trigger-a', collapsed ? 'collapsed' : '']"><Icon type="md-menu" :size="26" /></a>
+          <a @click="collapsed = !collapsed" type="text" :class="['side-trigger-a', collapsed ? 'collapsed' : '']"><Icon type="md-menu" size="26" /></a>
           <div class="custom-content-con">
             <div class="user-avator-dropdown">
               <Dropdown>
                 <Avatar :src="require('~/assets/images/home.gif')"></Avatar>
-                <Icon :size="18" type="md-arrow-dropdown"></Icon>
+                <Icon size="18" type="md-arrow-dropdown"></Icon>
                 <DropdownMenu slot="list">
                   <DropdownItem name="logout" @click.native="loginOut">退出登录</DropdownItem>
                 </DropdownMenu>
@@ -20,8 +20,12 @@
           </div>
         </div>
       </Header>
-      <Content>
-        <nuxt />
+      <Content class="container-wrapper">
+        <div class="container">
+          <div class="container-body">
+            <nuxt />
+          </div>
+        </div>
       </Content>
     </Layout>
   </Layout>
@@ -155,6 +159,27 @@ export default {
       color: #2d8cf0;
       background: #363e4f;
     }
+  }
+  .ivu-dropdown-item{
+    a.active{
+      background: transparent;
+    }
+  }
+}
+.container-wrapper {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 20px;
+  .container{
+    background: #fff;
+    border: 1px solid #e8eaec;
+    border-radius: 4px;
+    .container-body{
+      padding: 20px;
+    }
+  }
+  .search-con{
+    padding: 10px 0;
   }
 }
 </style>

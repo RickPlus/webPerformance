@@ -11,8 +11,7 @@ export default class AuthController {
     let userInfo = ctx.request.body
     let user = await UserRep.findByName(userInfo.name, ['password'])
     if (user && user.password === Base64.encode(Base64.encode(userInfo.password))) {
-      let token = JWT.sign(userInfo)
-      ctx.state.data = token
+      ctx.state.data = JWT.sign(userInfo)
     } else {
       ctx.body = Message.LoginFail
     }

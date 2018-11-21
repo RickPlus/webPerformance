@@ -12,7 +12,7 @@
       >
       <span slot="prepend">
         <Icon
-          :size="16"
+          size="16"
           type="ios-person"
         />
       </span>
@@ -26,7 +26,7 @@
       >
       <span slot="prepend">
         <Icon
-          :size="14"
+          size="14"
           type="md-lock"
         />
       </span>

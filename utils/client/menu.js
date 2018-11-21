@@ -6,18 +6,18 @@ export default [
   },
   {
     name: '页面访问',
+    path: '/visit',
+    icon: 'ios-compass'
+  },
+  {
+    name: '系统设置',
     path: '',
-    icon: 'ios-body',
+    icon: 'ios-settings',
     children: [
       {
-        name: '页面访问1',
-        path: '/1',
-        icon: 'ios-body'
-      },
-      {
-        name: '页面访问2',
-        path: '/2',
-        icon: 'ios-body'
+        name: 'appId',
+        path: '/settings/appId',
+        icon: 'ios-appstore'
       }
     ]
   }

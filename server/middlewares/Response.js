@@ -1,5 +1,6 @@
 import JWT from '../../utils/server/jwt'
 import Message from '../../utils/server/esum/Message'
+import UserRep from '../repository/UserRep'
 
 const result = (ctx) => {
   success(ctx)
@@ -55,6 +56,9 @@ module.exports = async (ctx, next) => {
       try {
         let payload = await JWT.verify(token)
         if (payload) {
+          // 将当前用户信息注入到ctx中 方便调用
+          let user = await UserRep.findByName(payload.name)
+          ctx.$currentUser = user
           await next()
           result(ctx)
         } else {

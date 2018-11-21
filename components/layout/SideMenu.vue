@@ -9,18 +9,18 @@
         <template v-if="item.children && item.children.length">
           <Submenu :name="`${index + 1}`" :key="index">
             <template slot="title">
-              <Icon :type="item.icon" />
+              <Icon :type="item.icon" v-if="item.icon"/>
               {{item.name}}
             </template>
             <MenuItem v-for="(sub, subIndex) in item.children" :name="`${index + 1}-${subIndex + 1}`" :key="subIndex" :to="sub.path">
-              <Icon :type="sub.icon" />
+              <Icon :type="sub.icon" v-if="sub.icon"/>
               {{sub.name}}
             </MenuItem>
           </Submenu>
         </template>
         <template v-else>
           <MenuItem :key="index" :name="`${index + 1}`" :to="item.path">
-            <Icon :type="item.icon" :key="index" />
+            <Icon :type="item.icon" :key="index" v-if="item.icon"/>
             {{item.name}}
           </MenuItem>
         </template>
@@ -31,7 +31,7 @@
         <template v-if="item.children && item.children.length">
           <Dropdown :key="index" transfer placement="right-start">
             <a href="javascript:void(0)" class="drop-menu-a">
-              <Icon :type="item.icon" :size="iconSize" :color="iconColor" />
+              <Icon :type="item.icon" :size="iconSize" :color="iconColor" v-if="item.icon"/>
             </a>
             <DropdownMenu slot="list">
               <DropdownItem v-for="(sub, subIndex) in item.children" :key="subIndex">
@@ -45,7 +45,7 @@
         <template v-else>
           <Tooltip transfer :key="index" placement="right" :content="item.name">
             <nuxt-link :to="item.path" class="drop-menu-a">
-              <Icon :type="item.icon" :size="iconSize" :color="iconColor" />
+              <Icon :type="item.icon" :size="iconSize" :color="iconColor" v-if="item.icon"/>
             </nuxt-link>
           </Tooltip>
         </template>

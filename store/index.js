@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './modules/auth'
+import settings from './modules/settings'
 import Cookie from '../utils/client/cookie'
 
 Vue.use(Vuex)
@@ -23,7 +24,8 @@ const store = () => new Vuex.Store({
   },
   getters: {},
   modules: {
-    auth
+    auth,
+    settings
   }
 })
 
