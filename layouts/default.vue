@@ -4,22 +4,7 @@
       <side-menu :collapsed="collapsed"></side-menu>
     </Sider>
     <Layout>
-      <Header class="header-con">
-        <div class="header-bar">
-          <a @click="collapsed = !collapsed" type="text" :class="['side-trigger-a', collapsed ? 'collapsed' : '']"><Icon type="md-menu" size="26" /></a>
-          <div class="custom-content-con">
-            <div class="user-avator-dropdown">
-              <Dropdown>
-                <Avatar :src="require('~/assets/images/home.gif')"></Avatar>
-                <Icon size="18" type="md-arrow-dropdown"></Icon>
-                <DropdownMenu slot="list">
-                  <DropdownItem name="logout" @click.native="loginOut">退出登录</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </div>
-          </div>
-        </div>
-      </Header>
+      <content-header :collapsed="collapsed" @changeStatus="changeStatus"></content-header>
       <Content class="container-wrapper">
         <div class="container">
           <div class="container-body">
@@ -33,9 +18,11 @@
 
 <script>
 import SideMenu from '~/components/layout/SideMenu'
+import ContentHeader from '~/components/layout/ContentHeader'
 export default {
   components: {
-    SideMenu
+    SideMenu,
+    ContentHeader
   },
   data () {
     return {
@@ -43,9 +30,8 @@ export default {
     }
   },
   methods: {
-    loginOut () {
-      window.Cookie.remove('token')
-      location.href = '/login'
+    changeStatus () {
+      this.collapsed = !this.collapsed
     }
   }
 }

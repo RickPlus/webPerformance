@@ -5,6 +5,7 @@ const PERFORMANCE_MONITOR = {
   getPerformanceTime: function () {
     this.performanceTime = window.performance.getEntriesByType('navigation')[0]
     this.resourceTime = window.performance.getEntriesByType('resource')
+    console.log(this)
   },
   getPageTime: function () {
     let { startTime, responseStart, loadEventEnd, domainLookupEnd, domainLookupStart, connectEnd, connectStart, domContentLoadedEventEnd, redirectEnd, redirectStart, responseEnd, domComplete } = this.performanceTime

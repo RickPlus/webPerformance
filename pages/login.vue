@@ -16,7 +16,7 @@
 
 <script>
 import LoginForm from '~/components/login/LoginForm'
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -28,15 +28,13 @@ export default {
   },
   methods: {
     async handleSubmit (data) {
-      await this.login(data)
-      // await this.$store.dispatch('auth/login')
+      await this.$store.dispatch('auth/login', data)
       if (this.token) {
         window.Cookie.set('token', this.token)
-        await this.getCurrentUserInfo()
+        await this.$store.dispatch('auth/getCurrentUserInfo')
         this.$router.push(this.$route.query.r || '/')
       }
-    },
-    ...mapActions('auth', ['login', 'getCurrentUserInfo'])
+    }
   }
 }
 </script>

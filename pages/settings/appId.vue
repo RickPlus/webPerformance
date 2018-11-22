@@ -44,7 +44,22 @@ export default {
                     this.modify(params)
                   }
                 }
-              }, '编辑')
+              }, '编辑'),
+              h('Button', {
+                props: {
+                  type: 'info',
+                  size: 'small',
+                  disabled: params.row.is_default
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.setDefault(params)
+                  }
+                }
+              }, '设为默认')
             ])
           }
         }
@@ -55,10 +70,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('settings', ['appIdTableList'])
-  },
-  async fetch ({ store }) {
-    store.dispatch('settings/getAppIdTableList')
+    ...mapState('settings', ['appIdTableList']),
+    ...mapState('auth', ['default_app_id'])
   },
   methods: {
     modify (params) {
@@ -70,6 +83,12 @@ export default {
       let data = { desc: this.appIdDesc }
       this.appId ? this.$store.dispatch('settings/modifyAppId', { ...data, id: this.appId }) : this.$store.dispatch('settings/addAppId', data)
       this.showConfirmModal = false
+    },
+    async setDefault (params) {
+      await this.$store.dispatch('auth/modifyUserInfo', {
+        default_app_id: params.row.id
+      })
+      location.reload()
     }
   }
 }
