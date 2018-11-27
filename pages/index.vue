@@ -10,7 +10,7 @@ export default {
   head () {
     return {
       script: [
-        { src: '/p.js', type: 'text/javascript' }
+        { src: '/p.js', type: 'text/javascript', crossorigin: true }
       ]
     }
   },
@@ -19,12 +19,7 @@ export default {
   components: {},
   methods: {
     getInfo () {
-      window.JsonP('/open/jsonp', { a: 1, b: 2 }, { param: 'callback' }, (err, rs) => {
-        if (err) {
-          console.log(err)
-        }
-        console.log(rs)
-      })
+      this.$axios.post('/open/monitor', { a: 1, b: 2 })
     }
   }
 }
