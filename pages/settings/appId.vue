@@ -79,9 +79,12 @@ export default {
       this.appIdDesc = params && params.row && params.row.id ? params.row.desc : ''
       this.showConfirmModal = true
     },
-    confirm () {
+    async confirm () {
       let data = { desc: this.appIdDesc }
-      this.appId ? this.$store.dispatch('settings/modifyAppId', { ...data, id: this.appId }) : this.$store.dispatch('settings/addAppId', data)
+      this.appId ? await this.$store.dispatch('settings/modifyAppId', { ...data, id: this.appId }) : await this.$store.dispatch('settings/addAppId', data)
+      if (this.appIdTableList.length === 1) {
+        this.$store.dispatch('auth/clientSelectAppId', this.appIdTableList[0].id)
+      }
       this.showConfirmModal = false
     },
     async setDefault (params) {

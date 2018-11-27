@@ -19,7 +19,12 @@ export default {
   components: {},
   methods: {
     getInfo () {
-      this.$store.dispatch('auth/getCurrentUserInfo')
+      window.JsonP('/open/jsonp', { a: 1, b: 2 }, { param: 'callback' }, (err, rs) => {
+        if (err) {
+          console.log(err)
+        }
+        console.log(rs)
+      })
     }
   }
 }

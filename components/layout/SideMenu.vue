@@ -80,7 +80,7 @@ export default {
   computed: {
     menuFormat () {
       let arr = []
-      MenuList.forEach((o, i) => {
+      MenuList.length && MenuList.forEach((o, i) => {
         arr.push(Object.assign({}, o, {
           activeName: `${i + 1}`
         }))
@@ -95,8 +95,8 @@ export default {
     },
     activeName () {
       let { path } = this.$route
-      let menu = this.menuFormat.find(o => o.path === path)
-      return menu.activeName || ''
+      let menu = this.menuFormat.length && this.menuFormat.find(o => o.path === path)
+      return menu ? menu.activeName : ''
     },
     openedNames () {
       let { path } = this.$route

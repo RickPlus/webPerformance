@@ -44,15 +44,21 @@ const Url = mysql.define('url', {
     type: 'DOUBLE(10,2)',
     allowNull: true
   },
-  browser: {
-    type: Sequelize.STRING(20),
-    allowNull: true,
-    field: 'browser'
+  device_type: {
+    type: Sequelize.STRING(10),
+    allowNull: true
   },
-  system: {
+  os_name: {
+    type: Sequelize.STRING(10),
+    allowNull: true
+  },
+  browser_name: {
+    type: Sequelize.STRING(10),
+    allowNull: true
+  },
+  browser_version: {
     type: Sequelize.STRING(20),
-    allowNull: true,
-    field: 'system'
+    allowNull: true
   },
   position: {
     type: Sequelize.STRING(10),

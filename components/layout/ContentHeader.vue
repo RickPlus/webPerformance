@@ -13,7 +13,7 @@
           </Dropdown>
         </div>
         <div>
-          <Dropdown trigger="click" @on-click="select">
+          <Dropdown trigger="click" @on-click="select" v-if="appIdTableList && appIdTableList.length">
             <a href="javascript:void(0)">
               {{title}}
               <Icon size="18" type="md-arrow-dropdown" />
@@ -42,7 +42,8 @@ export default {
     ...mapState('settings', ['appIdTableList']),
     ...mapState('auth', ['default_app_id']),
     title () {
-      return this.appIdTableList.find(o => o.id === this.default_app_id).desc
+      let item = this.appIdTableList.find(o => o.id === this.default_app_id)
+      return item ? item.desc : ''
     }
   },
   methods: {
