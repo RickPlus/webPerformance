@@ -52,7 +52,8 @@ window.PERFORMANCE_MONITOR = window.PERFORMANCE_MONITOR ? Object.assign({}, wind
 window.onload = function () {
   window.PERFORMANCE_MONITOR.init()
   let { agentInfo, pageTime, resourceList } = window.PERFORMANCE_MONITOR
-  axios.post('/open/monitor', {
+  window.PERFORMANCE_MONITOR_APPID && axios.post('/open/monitor', {
+    a: window.PERFORMANCE_MONITOR_APPID,
     ai: agentInfo,
     pt: pageTime,
     rl: resourceList

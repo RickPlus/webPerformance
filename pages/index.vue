@@ -9,9 +9,9 @@
 export default {
   head () {
     return {
-      script: [
-        { src: '/p.js', type: 'text/javascript', crossorigin: true }
-      ]
+      // script: [
+      //   { src: '/p.js', type: 'text/javascript', crossorigin: true }
+      // ]
     }
   },
   mounted () {

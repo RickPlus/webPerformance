@@ -59,7 +59,21 @@ export default {
                     this.setDefault(params)
                   }
                 }
-              }, '设为默认')
+              }, '设为默认'),
+              h('Button', {
+                props: {
+                  type: 'warning',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.showScript(params)
+                  }
+                }
+              }, '查看')
             ])
           }
         }
@@ -92,6 +106,21 @@ export default {
         default_app_id: params.row.id
       })
       location.reload()
+    },
+    showScript (params) {
+      this.$Modal.info({
+        title: '脚本',
+        width: 600,
+        content: `
+          &lt;script src="${location.origin}/p.js" type="text/javascript" crossorigin &gt;&lt;/script&gt;
+          <br />
+          &lt;script type="text/javascript" &gt;
+          <br />
+          window.PERFORMANCE_MONITOR_APPID = "${params.row.id}"
+          <br />
+          &lt;/script&gt;
+        `
+      })
     }
   }
 }
