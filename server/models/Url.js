@@ -24,7 +24,7 @@ const Url = mysql.define('url', {
     type: 'DOUBLE(10,2)',
     allowNull: true
   },
-  tls_time: {
+  tcp_time: {
     type: 'DOUBLE(10,2)',
     allowNull: true
   },

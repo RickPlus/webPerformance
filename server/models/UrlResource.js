@@ -12,8 +12,28 @@ const UrlResource = mysql.define('urlResource', {
     type: Sequelize.INTEGER(11),
     allowNull: true
   },
-  path: {
+  url: {
     type: Sequelize.STRING(100),
+    allowNull: true
+  },
+  dns_time: {
+    type: 'DOUBLE(10,2)',
+    allowNull: true
+  },
+  tcp_time: {
+    type: 'DOUBLE(10,2)',
+    allowNull: true
+  },
+  wait_ttfb_time: {
+    type: 'DOUBLE(10,2)',
+    allowNull: true
+  },
+  block_time: {
+    type: 'DOUBLE(10,2)',
+    allowNull: true
+  },
+  download_time: {
+    type: 'DOUBLE(10,2)',
     allowNull: true
   },
   size: {
@@ -24,7 +44,7 @@ const UrlResource = mysql.define('urlResource', {
     type: Sequelize.STRING(20),
     allowNull: true
   },
-  load_time: {
+  duration: {
     type: 'DOUBLE(10,2)',
     allowNull: true
   }
