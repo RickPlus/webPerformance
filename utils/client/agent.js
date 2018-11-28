@@ -1,5 +1,5 @@
 const AgentInfo = {
-  dt: '',
+  dvt: '',
   on: '',
   bn: '',
   bv: '',
@@ -26,7 +26,7 @@ const AgentInfo = {
     }
     if (name !== 'unknown') {
       this.on = name
-      this.dt = 'mobile'
+      this.dvt = 'mobile'
       return false
     }
 
@@ -51,7 +51,7 @@ const AgentInfo = {
     }
 
     this.on = name
-    this.dt = 'pc'
+    this.dvt = 'pc'
   },
   setBrowser: function () {
     let re = /(msie|firefox|chrome|opera|version).*?([\d.]+)/

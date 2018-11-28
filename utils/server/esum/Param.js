@@ -1,0 +1,21 @@
+export default {
+  u: 'url',
+  lt: 'load_time',
+  wt: 'white_time',
+  dt: 'dns_time',
+  tt: 'tcp_time',
+  dmt: 'dom_time',
+  rdt: 'redirect_time',
+  rst: 'resource_time',
+  drt: 'dom_ready_time',
+  d: 'duration',
+  ttfb: 'wait_ttfb_time',
+  dlt: 'download_time',
+  bt: 'block_time',
+  s: 'size',
+  t: 'type',
+  dvt: 'device_type',
+  on: 'os_name',
+  bn: 'browser_name',
+  bv: 'browser_version'
+}
