@@ -1,4 +1,6 @@
+import axios from 'axios'
 import AgentInfo from '../utils/client/agent'
+import Number from '../utils/client/number'
 
 const PERFORMANCE_MONITOR = {
   agentInfo: AgentInfo.init(),
@@ -15,15 +17,15 @@ const PERFORMANCE_MONITOR = {
   getPageTime: function () {
     let { startTime, responseStart, loadEventEnd, domainLookupEnd, domainLookupStart, connectEnd, connectStart, domContentLoadedEventEnd, redirectEnd, redirectStart, responseEnd, domComplete } = this.performanceTime
     this.pageTime = {
-      url: window.location.origin + window.location.pathname,
-      load_time: loadEventEnd - startTime,
-      white_time: responseStart - startTime,
-      dns_time: domainLookupEnd - domainLookupStart,
-      tcp_time: connectEnd - connectStart,
-      dom_time: domContentLoadedEventEnd - startTime,
-      redirect_time: redirectEnd - redirectStart,
-      resource_time: responseEnd - responseStart,
-      dom_ready_time: domComplete - startTime
+      u: window.location.origin + window.location.pathname,
+      lt: Number.toDecimal2(loadEventEnd - startTime),
+      wt: Number.toDecimal2(responseStart - startTime),
+      dt: Number.toDecimal2(domainLookupEnd - domainLookupStart),
+      tt: Number.toDecimal2(connectEnd - connectStart),
+      dmt: Number.toDecimal2(domContentLoadedEventEnd - startTime),
+      rdt: Number.toDecimal2(redirectEnd - redirectStart),
+      rst: Number.toDecimal2(responseEnd - responseStart),
+      drt: Number.toDecimal2(domComplete - startTime)
     }
   },
   getResourceTime: function () {
@@ -31,15 +33,15 @@ const PERFORMANCE_MONITOR = {
     let arr = []
     time.forEach(function (item) {
       arr.push({
-        duration: item.duration,
-        tcp_time: item.connectEnd - item.connectStart,
-        dns_time: item.domainLookupEnd - item.domainLookupStart,
-        wait_ttfb_time: item.responseStart - item.requestStart,
-        download_time: item.responseEnd - item.responseStart,
-        block_time: item.requestStart - item.connectStart,
-        size: item.transferSize,
-        url: item.name,
-        type: item.initiatorType
+        d: Number.toDecimal2(item.duration),
+        tt: Number.toDecimal2(item.connectEnd - item.connectStart),
+        dt: Number.toDecimal2(item.domainLookupEnd - item.domainLookupStart),
+        ttfb: Number.toDecimal2(item.responseStart - item.requestStart),
+        dlt: Number.toDecimal2(item.responseEnd - item.responseStart),
+        bt: Number.toDecimal2(item.requestStart - item.connectStart),
+        s: Number.toDecimal2(item.transferSize / 1000),
+        u: item.name,
+        t: item.initiatorType
       })
     })
     this.resourceList = arr
@@ -49,4 +51,10 @@ const PERFORMANCE_MONITOR = {
 window.PERFORMANCE_MONITOR = window.PERFORMANCE_MONITOR ? Object.assign({}, window.PERFORMANCE_MONITOR, PERFORMANCE_MONITOR) : PERFORMANCE_MONITOR
 window.onload = function () {
   window.PERFORMANCE_MONITOR.init()
+  let { agentInfo, pageTime, resourceList } = window.PERFORMANCE_MONITOR
+  axios.post('/open/monitor', {
+    ai: agentInfo,
+    pt: pageTime,
+    rl: resourceList
+  })
 }

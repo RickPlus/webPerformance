@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
+    "axios": "^0.18.0",
     "cross-env": "^5.2.0",
     "fs": "^0.0.1-security",
     "iview": "^3.1.3",

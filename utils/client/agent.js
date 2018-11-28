@@ -1,63 +1,63 @@
 const AgentInfo = {
-  deviceType: '',
-  osName: '',
-  browserName: '',
-  browserVersion: '',
-  userAgent: window.navigator.userAgent,
+  dt: '',
+  on: '',
+  bn: '',
+  bv: '',
   init: function () {
     this.setDeviceAndOS()
     this.setBrowser()
     return this
   },
   setDeviceAndOS: function () {
+    let userAgent = window.navigator.userAgent
     let name = 'unknown'
-    if (this.userAgent.includes('Android')) {
+    if (userAgent.includes('Android')) {
       name = 'Android'
-    } else if (this.userAgent.includes('iPhone')) {
+    } else if (userAgent.includes('iPhone')) {
       name = 'iPhone'
-    } else if (this.userAgent.includes('SymbianOS')) {
+    } else if (userAgent.includes('SymbianOS')) {
       name = 'SymbianOS'
-    } else if (this.userAgent.includes('Windows Phone')) {
+    } else if (userAgent.includes('Windows Phone')) {
       name = 'Windows Phone'
-    } else if (this.userAgent.includes('iPad')) {
+    } else if (userAgent.includes('iPad')) {
       name = 'iPad'
-    } else if (this.userAgent.includes('iPod')) {
+    } else if (userAgent.includes('iPod')) {
       name = 'iPod'
     }
     if (name !== 'unknown') {
-      this.osName = name
-      this.deviceType = 'mobile'
+      this.on = name
+      this.dt = 'mobile'
       return false
     }
 
-    if (this.userAgent.includes('Windows NT 10.0')) {
+    if (userAgent.includes('Windows NT 10.0')) {
       name = 'Windows 10'
-    } else if (this.userAgent.includes('Windows NT 6.2')) {
+    } else if (userAgent.includes('Windows NT 6.2')) {
       name = 'Windows 8'
-    } else if (this.userAgent.includes('Windows NT 6.1')) {
+    } else if (userAgent.includes('Windows NT 6.1')) {
       name = 'Windows 7'
-    } else if (this.userAgent.includes('Windows NT 6.0')) {
+    } else if (userAgent.includes('Windows NT 6.0')) {
       name = 'Windows Vista'
-    } else if (this.userAgent.includes('Windows NT 5.1')) {
+    } else if (userAgent.includes('Windows NT 5.1')) {
       name = 'Windows XP'
-    } else if (this.userAgent.includes('Windows NT 5.0')) {
+    } else if (userAgent.includes('Windows NT 5.0')) {
       name = 'Windows 2000'
-    } else if (this.userAgent.includes('Mac')) {
+    } else if (userAgent.includes('Mac')) {
       name = 'Mac/IOS'
-    } else if (this.userAgent.includes('X11')) {
+    } else if (userAgent.includes('X11')) {
       name = 'UNIX'
-    } else if (this.userAgent.includes('Linux')) {
+    } else if (userAgent.includes('Linux')) {
       name = 'Linux'
     }
 
-    this.osName = name
-    this.deviceType = 'pc'
+    this.on = name
+    this.dt = 'pc'
   },
   setBrowser: function () {
     let re = /(msie|firefox|chrome|opera|version).*?([\d.]+)/
-    let m = this.userAgent.toLowerCase().match(re)
-    this.browserName = m[1].replace(/version/, "'safari")
-    this.browserVersion = m[2]
+    let m = window.navigator.userAgent.toLowerCase().match(re)
+    this.bn = m[1].replace(/version/, "'safari")
+    this.bv = m[2]
   }
 }
 

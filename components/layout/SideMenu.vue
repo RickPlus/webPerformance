@@ -101,7 +101,7 @@ export default {
     openedNames () {
       let { path } = this.$route
       let menu = this.menuFormat.find(o => o.path === path)
-      return menu.openedNames || []
+      return menu ? menu.openedNames : []
     }
   },
   methods: {
