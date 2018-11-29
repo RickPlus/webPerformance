@@ -1,13 +1,13 @@
 import axios from 'axios'
 import AgentInfo from '../utils/client/agent'
 import Number from '../utils/client/number'
+import Event from '../utils/client/event'
 
 const PERFORMANCE_MONITOR = {
   agentInfo: AgentInfo.init(),
   init: function () {
     this.getPerformanceTime()
     this.getResourceTime()
-    console.log(this)
   },
   getPerformanceTime: function () {
     this.performanceTime = window.performance.getEntriesByType('navigation')[0]
@@ -49,7 +49,7 @@ const PERFORMANCE_MONITOR = {
 }
 
 window.PERFORMANCE_MONITOR = window.PERFORMANCE_MONITOR ? Object.assign({}, window.PERFORMANCE_MONITOR, PERFORMANCE_MONITOR) : PERFORMANCE_MONITOR
-window.onload = function () {
+Event.add('load', function () {
   window.PERFORMANCE_MONITOR.init()
   let { agentInfo, pageTime, resourceList } = window.PERFORMANCE_MONITOR
   window.PERFORMANCE_MONITOR_APPID && axios.post('/open/monitor', {
@@ -58,4 +58,8 @@ window.onload = function () {
     pt: pageTime,
     rl: resourceList
   })
-}
+})
+
+Event.add('popstate', function () {
+  console.log('popstate')
+})
