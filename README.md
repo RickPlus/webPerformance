@@ -17,7 +17,7 @@
 
 ##### Models
 
-> 数据库表结构 参考Sequelize
+> 数据库表结构 参考Sequelize  初始化用户admin 密码admin
 
 ##### Repository
 

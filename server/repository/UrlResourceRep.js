@@ -5,7 +5,7 @@
 import { TryCatch } from '../../utils/server/decorator'
 import UrlResource from '../models/UrlResource'
 
-class UrlResourceSdkRep {
+class UrlResourceRep {
   constructor (tableName) {
     this.Model = UrlResource
     if (tableName) {
@@ -27,8 +27,18 @@ class UrlResourceSdkRep {
   async findAll () {
     return await this.Model.findAll()
   }
+
+  @TryCatch
+  async createOne (obj) {
+    return await this.Model.create(obj)
+  }
+
+  @TryCatch
+  async bulkCreate (arr) {
+    return await this.Model.bulkCreate(arr)
+  }
 }
 
 export default (tableName) => {
-  return new UrlResourceSdkRep(tableName)
+  return new UrlResourceRep(tableName)
 }

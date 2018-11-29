@@ -1,9 +1,9 @@
 import JWT from '../../utils/server/jwt'
 import Message from '../../utils/server/esum/Message'
 import UserRep from '../repository/UserRep'
+import AppIdRep from '../repository/AppIdRep'
 
 const result = (ctx) => {
-  success(ctx)
   if (ctx.state.data && ctx.state.data.constructor === Error) {
     fail(ctx, ctx.state.data)
   } else {
@@ -46,35 +46,50 @@ const unLogin = (ctx, obj = Message.NotLogin) => {
 module.exports = async (ctx, next) => {
   let { url } = ctx.request
   // 调用下一个 middleware
-  // ************************** /open 的接口不通过token验证  /api接口全部需要通过token验证
-  if (url.includes('/api')) {
-    // 用户验证
-    const token = ctx.header.authorization // 格式：Bearer token
-    if (!token) {
-      unLogin(ctx)
+  // ************************** /open/monitor
+  if (url.includes('/open/monitor')) {
+    const { a } = ctx.request.body
+    if (!a) {
+      fail(ctx, Message.NoAppId)
     } else {
-      try {
-        let payload = await JWT.verify(token)
-        if (payload) {
-          // 将当前用户信息注入到ctx中 方便调用
-          let user = await UserRep.findByName(payload.name)
-          ctx.$currentUser = user
-          await next()
-          result(ctx)
-        } else {
-          unLogin(ctx)
-        }
-      } catch (e) {
-        fail(
-          ctx,
-          e.message === 'jwt expired'
-            ? Message.Expired
-            : e
-        )
+      let one = await AppIdRep.findById(a)
+      if (!one) {
+        fail(ctx, Message.NoAppId)
+      } else {
+        await next()
+        result(ctx)
       }
     }
   } else {
-    await next()
-    result(ctx)
+    // ************************** /open 的接口不通过token验证  /api接口全部需要通过token验证
+    if (url.includes('/api')) {
+      // 用户验证
+      const token = ctx.header.authorization // 格式：Bearer token
+      if (!token) {
+        unLogin(ctx)
+      } else {
+        try {
+          let payload = await JWT.verify(token)
+          if (payload) {
+            // 将当前用户信息注入到ctx中 方便调用
+            ctx.$currentUser = await UserRep.findByName(payload.name)
+            await next()
+            result(ctx)
+          } else {
+            unLogin(ctx)
+          }
+        } catch (e) {
+          fail(
+            ctx,
+            e.message === 'jwt expired'
+              ? Message.Expired
+              : e
+          )
+        }
+      }
+    } else {
+      await next()
+      result(ctx)
+    }
   }
 }

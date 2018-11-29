@@ -3,5 +3,6 @@ export default {
   Error: { code: 0, message: '失败' },
   NotLogin: { code: -1, message: '用户未登录' },
   LoginFail: { code: 0, message: '用户名和密码不匹配' },
-  Expired: { code: -1, message: 'token验证失效' }
+  Expired: { code: -1, message: 'token验证失效' },
+  NoAppId: { code: 0, message: 'appId不正确' }
 }
