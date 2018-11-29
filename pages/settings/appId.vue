@@ -112,7 +112,7 @@ export default {
         title: '脚本',
         width: 600,
         content: `
-          &lt;script src="${location.origin}/p.js" type="text/javascript" crossorigin &gt;&lt;/script&gt;
+          &lt;script src="${location.origin}/monitor.js" type="text/javascript" crossorigin &gt;&lt;/script&gt;
           <br />
           &lt;script type="text/javascript" &gt;
           <br />

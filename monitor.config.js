@@ -4,6 +4,6 @@ module.exports = {
   entry: './monitor/index',
   output: {
     path: path.resolve('./static'),
-    filename: 'p.js'
+    filename: 'monitor.js'
   }
 }

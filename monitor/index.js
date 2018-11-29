@@ -59,7 +59,3 @@ Event.add('load', function () {
     rl: resourceList
   })
 })
-
-Event.add('popstate', function () {
-  console.log('popstate')
-})

@@ -81,5 +81,4 @@ dist
 
 # IDE
 .idea
-static/p.js
-static/p.min.js
+static/monitor.js
