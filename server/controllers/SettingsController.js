@@ -1,6 +1,6 @@
-import { Controller, Method, Request } from '../../utils/server/decorator'
-import AppIdRep from '../repository/AppIdRep'
-import UserRep from '../repository/UserRep'
+import { Controller, Method, Request } from '@utils/server/decorator'
+import AppIdRep from '@repository/AppIdRep'
+import UserRep from '@repository/UserRep'
 import UUID from 'uuid/v1'
 
 @Controller({ prefix: '/api/settings' })

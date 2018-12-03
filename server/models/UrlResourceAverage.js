@@ -1,7 +1,7 @@
 import mysql from '@utils/server/mysql'
 import Sequelize from 'sequelize'
 
-const UrlResource = mysql.define('urlResource', {
+const urlResourceAverage = mysql.define('urlResourceAverage', {
   id: {
     type: Sequelize.INTEGER(11),
     allowNull: false,
@@ -49,8 +49,8 @@ const UrlResource = mysql.define('urlResource', {
     allowNull: true
   }
 }, {
-  tableName: 'url_resource'
+  tableName: 'url_resource_average'
 })
 
-UrlResource.sync()
-export default UrlResource
+urlResourceAverage.sync()
+export default urlResourceAverage

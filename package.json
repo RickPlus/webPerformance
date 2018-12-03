@@ -27,6 +27,7 @@
     "koa-jwt": "^3.5.1",
     "koa-multer": "^1.0.2",
     "koa-router": "^7.4.0",
+    "module-alias": "^2.1.0",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.1",
     "nuxt": "2.3.4",

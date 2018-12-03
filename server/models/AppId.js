@@ -1,4 +1,4 @@
-import mysql from '../../utils/server/mysql'
+import mysql from '@utils/server/mysql'
 import Sequelize from 'sequelize'
 
 const AppId = mysql.define('app_id', {

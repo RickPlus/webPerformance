@@ -3,9 +3,21 @@ require('babel-register')
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const routes = require('./routes')
-const Response = require('./middlewares/Response')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const path = require('path')
+const moduleAlias = require('module-alias')
+
+moduleAlias.addAliases({
+  '@server': path.join(__dirname, '.'),
+  '@models': path.join(__dirname, 'models'),
+  '@controllers': path.join(__dirname, 'controllers'),
+  '@config': path.join(__dirname, 'config'),
+  '@repository': path.join(__dirname, 'repository'),
+  '@utils': path.join(__dirname, '../utils')
+})
+
+const Response = require('./middlewares/Response')
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'

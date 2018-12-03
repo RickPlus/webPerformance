@@ -1,5 +1,5 @@
-import { TryCatch } from '../../utils/server/decorator'
-import AppId from '../models/AppId'
+import { TryCatch } from '@utils/server/decorator'
+import AppId from '@models/AppId'
 
 // User.tableName = 'user_copy'
 // User.sync()

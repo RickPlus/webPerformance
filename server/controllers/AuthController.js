@@ -1,8 +1,8 @@
 import { Base64 } from 'js-base64'
-import { Controller, Method, Request } from '../../utils/server/decorator'
-import JWT from '../../utils/server/jwt'
-import Message from '../../utils/server/esum/Message'
-import UserRep from '../repository/UserRep'
+import { Controller, Method, Request } from '@utils/server/decorator'
+import JWT from '@utils/server/jwt'
+import Message from '@utils/server/esum/Message'
+import UserRep from '@repository/UserRep'
 
 @Controller({ prefix: '/open' })
 export default class AuthController {

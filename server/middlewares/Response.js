@@ -1,7 +1,7 @@
-import JWT from '../../utils/server/jwt'
-import Message from '../../utils/server/esum/Message'
-import UserRep from '../repository/UserRep'
-import AppIdRep from '../repository/AppIdRep'
+import JWT from '@utils/server/jwt'
+import Message from '@utils/server/esum/Message'
+import UserRep from '@repository/UserRep'
+import AppIdRep from '@repository/AppIdRep'
 
 const result = (ctx) => {
   if (ctx.state.data && ctx.state.data.constructor === Error) {

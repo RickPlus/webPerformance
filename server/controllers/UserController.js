@@ -1,5 +1,5 @@
-import { Controller, Method, Request } from '../../utils/server/decorator'
-import UserRep from '../repository/UserRep'
+import { Controller, Method, Request } from '@utils/server/decorator'
+import UserRep from '@repository/UserRep'
 
 @Controller({ prefix: '/api/user' })
 export default class UserController {

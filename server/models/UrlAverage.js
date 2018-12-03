@@ -1,7 +1,7 @@
 import mysql from '@utils/server/mysql'
 import Sequelize from 'sequelize'
 
-const Url = mysql.define('url', {
+const UrlAverage = mysql.define('urlAverage', {
   id: {
     type: Sequelize.INTEGER(11),
     allowNull: false,
@@ -10,6 +10,10 @@ const Url = mysql.define('url', {
   },
   url: {
     type: Sequelize.STRING(1000),
+    allowNull: true
+  },
+  count: {
+    type: Sequelize.INTEGER(11),
     allowNull: true
   },
   load_time: {
@@ -60,22 +64,13 @@ const Url = mysql.define('url', {
     type: Sequelize.STRING(20),
     allowNull: true
   },
-  position: {
-    type: Sequelize.STRING(10),
+  date_type: {
+    type: 'TINYINT(1)',
     allowNull: true
-  },
-  ip: {
-    type: Sequelize.STRING(20),
-    allowNull: true
-  },
-  visit_time: {
-    type: Sequelize.DATE,
-    allowNull: true,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
   }
 }, {
-  tableName: 'url'
+  tableName: 'url_average'
 })
 
-Url.sync()
-export default Url
+UrlAverage.sync()
+export default UrlAverage

@@ -2,8 +2,8 @@
 * Url sdk 表名专用Rep 表结构和Model Url 一样
 * */
 
-import { TryCatch } from '../../utils/server/decorator'
-import Url from '../models/Url'
+import { TryCatch } from '@utils/server/decorator'
+import Url from '@models/Url'
 
 class UrlRep {
   constructor (tableName) {

@@ -1,4 +1,4 @@
-import { Controller, Method, Request } from '../../utils/server/decorator'
+import { Controller, Method, Request } from '@utils/server/decorator'
 
 @Controller({ prefix: '/api/index' })
 export default class IndexController {

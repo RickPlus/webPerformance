@@ -1,7 +1,7 @@
-import { Controller, Method, Request } from '../../utils/server/decorator'
-import UrlRep from '../repository/UrlRep'
-import UrlResourceRep from '../repository/UrlResourceRep'
-import Param from '../../utils/server/esum/Param'
+import { Controller, Method, Request } from '@utils/server/decorator'
+import UrlRep from '@repository/UrlRep'
+import UrlResourceRep from '@repository/UrlResourceRep'
+import Param from '@utils/server/esum/Param'
 
 @Controller({ prefix: '/open' })
 export default class MonitorController {
