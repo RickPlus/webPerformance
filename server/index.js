@@ -14,7 +14,7 @@ moduleAlias.addAliases({
   '@controllers': path.join(__dirname, 'controllers'),
   '@config': path.join(__dirname, 'config'),
   '@repository': path.join(__dirname, 'repository'),
-  '@utils': path.join(__dirname, '../utils')
+  '@/utils': path.join(__dirname, '../utils')
 })
 
 const Response = require('./middlewares/Response')

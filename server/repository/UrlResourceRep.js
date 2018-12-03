@@ -2,7 +2,7 @@
 * UrlResource sdk 表名专用Rep 表结构和Model UrlResource 一样
 * */
 
-import { TryCatch } from '@utils/server/decorator'
+import { TryCatch } from '@/utils/server/decorator'
 import UrlResource from '@models/UrlResource'
 
 class UrlResourceRep {

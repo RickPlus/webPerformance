@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { secretName } = require('../../server/config/index')
+const { secretName } = require('@config/index')
 
 export default {
   sign: sign => jwt.sign(sign, secretName, { expiresIn: '1d' }), // 默认单位ms

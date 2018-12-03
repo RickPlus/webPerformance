@@ -16,7 +16,7 @@ module.exports = {
       '@controllers': path.join(__dirname, 'server/controllers'),
       '@config': path.join(__dirname, 'server/config'),
       '@repository': path.join(__dirname, 'server/repository'),
-      '@utils': path.join(__dirname, 'utils')
+      '@/utils': path.join(__dirname, 'utils')
     }
   }
 }

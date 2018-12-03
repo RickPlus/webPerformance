@@ -1,4 +1,4 @@
-import mysql from '@utils/server/mysql'
+import mysql from '@/utils/server/mysql'
 import { Base64 } from 'js-base64'
 import Sequelize from 'sequelize'
 

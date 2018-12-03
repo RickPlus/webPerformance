@@ -1,4 +1,4 @@
-import { TryCatch } from '@utils/server/decorator'
+import { TryCatch } from '@/utils/server/decorator'
 import User from '@models/User'
 
 // User.tableName = 'user_copy'

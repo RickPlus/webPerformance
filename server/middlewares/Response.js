@@ -1,5 +1,5 @@
-import JWT from '@utils/server/jwt'
-import Message from '@utils/server/esum/Message'
+import JWT from '@/utils/server/jwt'
+import Message from '@/utils/server/esum/Message'
 import UserRep from '@repository/UserRep'
 import AppIdRep from '@repository/AppIdRep'
 
