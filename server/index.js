@@ -2,12 +2,11 @@ require('babel-polyfill')
 require('babel-register')
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
-const routes = require('./routes')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const path = require('path')
+const schedule = require('node-schedule')
 const moduleAlias = require('module-alias')
-
 moduleAlias.addAliases({
   '@server': path.join(__dirname, '.'),
   '@models': path.join(__dirname, 'models'),
@@ -17,6 +16,8 @@ moduleAlias.addAliases({
   '@/utils': path.join(__dirname, '../utils')
 })
 
+const Average = require('./script/average')
+const routes = require('./routes')
 const Response = require('./middlewares/Response')
 
 const app = new Koa()
@@ -24,7 +25,7 @@ const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
 // Import and Set Nuxt.js options
-let config = require('../nuxt.config.js')
+let config = require('../nuxt.config')
 config.dev = !(app.env === 'production')
 
 app.use(bodyParser())
@@ -62,3 +63,9 @@ async function start () {
 }
 
 start()
+
+schedule.scheduleJob('*/30 * * * *', function () {
+  consola.info('~~~~~~ average schedule begin ~~~~~~')
+  Average.init()
+  consola.info('~~~~~~ average schedule end ~~~~~~')
+})

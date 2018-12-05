@@ -13,6 +13,11 @@ export default class AppIdRep {
   }
 
   @TryCatch
+  static async findAll () {
+    return await AppId.findAll()
+  }
+
+  @TryCatch
   static async findAllByUserId (id) {
     return await AppId.findAll({
       where: { user_id: id }

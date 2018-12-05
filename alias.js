@@ -8,9 +8,9 @@ module.exports = {
   resolve: {
     // for WebStorm
     alias: {
-      '@': path.resolve(__dirname),
-      '~': path.resolve(__dirname),
-      '~assets': path.resolve(__dirname, 'assets'),
+      '@': path.join(__dirname),
+      '~': path.join(__dirname),
+      '~assets': path.join(__dirname, 'assets'),
       '@server': path.join(__dirname, 'server'),
       '@models': path.join(__dirname, 'server/models'),
       '@controllers': path.join(__dirname, 'server/controllers'),

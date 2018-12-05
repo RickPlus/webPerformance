@@ -48,25 +48,35 @@ const UrlAverage = mysql.define('urlAverage', {
     type: 'DOUBLE(10,2)',
     allowNull: true
   },
-  device_type: {
-    type: Sequelize.STRING(10),
-    allowNull: true
-  },
-  os_name: {
-    type: Sequelize.STRING(10),
-    allowNull: true
-  },
-  browser_name: {
-    type: Sequelize.STRING(10),
-    allowNull: true
-  },
-  browser_version: {
-    type: Sequelize.STRING(20),
-    allowNull: true
-  },
+  // device_type: {
+  //   type: Sequelize.STRING(10),
+  //   allowNull: true
+  // },
+  // os_name: {
+  //   type: Sequelize.STRING(10),
+  //   allowNull: true
+  // },
+  // browser_name: {
+  //   type: Sequelize.STRING(10),
+  //   allowNull: true
+  // },
+  // browser_version: {
+  //   type: Sequelize.STRING(20),
+  //   allowNull: true
+  // },
   date_type: {
     type: 'TINYINT(1)',
     allowNull: true
+  },
+  status: {
+    type: 'TINYINT(1)',
+    allowNull: false,
+    defaultValue: 1
+  },
+  created_at: {
+    type: Sequelize.DATE,
+    allowNull: true,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
   }
 }, {
   tableName: 'url_average'
