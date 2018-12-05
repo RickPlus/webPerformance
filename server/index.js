@@ -64,8 +64,8 @@ async function start () {
 
 start()
 
-schedule.scheduleJob('*/30 * * * *', function () {
+schedule.scheduleJob('*/30 * * * *', async function () {
   consola.info('~~~~~~ average schedule begin ~~~~~~')
-  Average.init()
+  await Average.start()
   consola.info('~~~~~~ average schedule end ~~~~~~')
 })

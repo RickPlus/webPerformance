@@ -1,14 +1,14 @@
 export default [
   {
-    name: '首页',
+    name: '页面访问',
     path: '/',
     icon: 'ios-body'
   },
-  {
-    name: '页面访问',
-    path: '/visit',
-    icon: 'ios-compass'
-  },
+  // {
+  //   name: '页面访问',
+  //   path: '/visit',
+  //   icon: 'ios-compass'
+  // },
   {
     name: '系统设置',
     path: '',

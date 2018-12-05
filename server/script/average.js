@@ -17,7 +17,6 @@ import String from '@/utils/client/string'
 
 const queryObj = { type: Sequelize.QueryTypes.SELECT }
 const format = 'YYYY-MM-DD HH:mm:ss'
-const now = Moment().format(format)
 let timeSql = `
   SELECT url,
   count(url) as count,
@@ -34,10 +33,8 @@ let timeSql = `
 `
 
 const Average = {
-  init: function () {
-    this.start()
-  },
   start: async function () {
+    this.now = Moment().format(format)
     await this.findAppId()
   },
   findAppId: async function () {
@@ -57,14 +54,14 @@ const Average = {
       let timeAvgList = await mysql.query(sql, queryObj)
       timeAvgList.length && timeAvgList.map((o) => {
         o.date_type = key
-        o.created_at = now
+        o.created_at = this.now
       })
       timeAvgList.length && await UrlAverageRep(`url_average_${id}`).bulkCreate(timeAvgList)
     }
   },
   setStatus: async function (id) {
     let tableName = `url_average_${id}`
-    let list = await UrlAverageRep(tableName).findBeforeTime(now)
+    let list = await UrlAverageRep(tableName).findBeforeTime(this.now)
     let arr = []
     list.length && list.forEach((o) => {
       arr.push(o.id)

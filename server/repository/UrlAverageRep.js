@@ -60,6 +60,11 @@ class UrlAverageRep {
       }
     })
   }
+
+  @TryCatch
+  async findByPagination (obj) {
+    return await this.Model.findAndCountAll(obj)
+  }
 }
 
 export default (tableName) => {

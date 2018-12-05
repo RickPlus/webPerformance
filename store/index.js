@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './modules/auth'
 import settings from './modules/settings'
+import average from './modules/average'
 import Cookie from '@/utils/client/cookie'
 
 Vue.use(Vuex)
@@ -28,7 +29,8 @@ const store = () => new Vuex.Store({
   getters: {},
   modules: {
     auth,
-    settings
+    settings,
+    average
   }
 })
 
