@@ -41,6 +41,15 @@ class UrlAverageRep {
   }
 
   @TryCatch
+  async findByStatus (status) {
+    return await this.Model.findAll({
+      where: {
+        status: status
+      }
+    })
+  }
+
+  @TryCatch
   async createOne (obj) {
     return await this.Model.create(obj)
   }
@@ -53,6 +62,17 @@ class UrlAverageRep {
   @TryCatch
   async updateStatusInIds (status, ids) {
     return await this.Model.update({ status: status }, {
+      where: {
+        id: {
+          $in: ids
+        }
+      }
+    })
+  }
+
+  @TryCatch
+  async deleteAll (ids) {
+    return await this.Model.destroy({
       where: {
         id: {
           $in: ids

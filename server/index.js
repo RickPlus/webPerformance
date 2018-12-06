@@ -5,7 +5,7 @@ const bodyParser = require('koa-bodyparser')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const path = require('path')
-const schedule = require('node-schedule')
+
 const moduleAlias = require('module-alias')
 moduleAlias.addAliases({
   '@server': path.join(__dirname, '.'),
@@ -16,7 +16,7 @@ moduleAlias.addAliases({
   '@/utils': path.join(__dirname, '../utils')
 })
 
-const Average = require('./script/average')
+require('./script')
 const routes = require('./routes')
 const Response = require('./middlewares/Response')
 
@@ -63,9 +63,3 @@ async function start () {
 }
 
 start()
-
-schedule.scheduleJob('*/30 * * * *', async function () {
-  consola.info('~~~~~~ average schedule begin ~~~~~~')
-  await Average.start()
-  consola.info('~~~~~~ average schedule end ~~~~~~')
-})

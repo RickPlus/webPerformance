@@ -9,6 +9,7 @@
  */
 import Sequelize from 'sequelize'
 import Moment from 'moment'
+import consola from 'consola'
 import mysql from '@/utils/server/mysql'
 import AppIdRep from '@repository/AppIdRep'
 import UrlAverageRep from '@repository/UrlAverageRep'
@@ -34,14 +35,26 @@ let timeSql = `
 
 const Average = {
   start: async function () {
+    consola.info('~~~~~~ average schedule start ~~~~~~')
     this.now = Moment().format(format)
-    await this.findAppId()
+    await this.eachAppIds('start')
+  },
+  delete: async function () {
+    consola.info('~~~~~~ average schedule delete start ~~~~~~')
+    await this.eachAppIds('delete')
   },
   findAppId: async function () {
-    let ids = await AppIdRep.findAll()
+    return await AppIdRep.findAll()
+  },
+  eachAppIds: async function (type = 'start') {
+    let ids = await this.findAppId()
     ids.length && ids.forEach(async (o) => {
-      await this.getTimeAverage(o.id.slice(0, 8))
-      await this.setStatus(o.id.slice(0, 8))
+      if (type === 'start') {
+        await this.getTimeAverage(o.id.slice(0, 8))
+        await this.setStatus(o.id.slice(0, 8))
+      } else {
+        await this.deleteIds(o.id.slice(0, 8))
+      }
     })
   },
   getBeforeTime: function (num, type) {
@@ -62,11 +75,23 @@ const Average = {
   setStatus: async function (id) {
     let tableName = `url_average_${id}`
     let list = await UrlAverageRep(tableName).findBeforeTime(this.now)
+    let arr = this.getIds(list)
+    arr.length && await UrlAverageRep(tableName).updateStatusInIds(0, arr)
+    consola.info('~~~~~~ average schedule end ~~~~~~')
+  },
+  deleteIds: async function (id) {
+    let tableName = `url_average_${id}`
+    let list = await UrlAverageRep(tableName).findByStatus(0)
+    let arr = this.getIds(list)
+    list.length && await UrlAverageRep(tableName).deleteAll(arr)
+    consola.info('~~~~~~ average schedule delete end ~~~~~~')
+  },
+  getIds: function (list) {
     let arr = []
     list.length && list.forEach((o) => {
       arr.push(o.id)
     })
-    arr.length && await UrlAverageRep(tableName).updateStatusInIds(0, arr)
+    return arr
   }
 }
 module.exports = Average
