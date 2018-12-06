@@ -8,16 +8,15 @@
  步骤：sql 计算平均值，写入新表，分时间段类型date_type（参考Time esum）
  */
 import Sequelize from 'sequelize'
-import Moment from 'moment'
 import consola from 'consola'
 import mysql from '@/utils/server/mysql'
 import AppIdRep from '@repository/AppIdRep'
 import UrlAverageRep from '@repository/UrlAverageRep'
 import Time from '@/utils/server/esum/Time'
 import String from '@/utils/client/string'
+import DateTime from '@/utils/server/time'
 
 const queryObj = { type: Sequelize.QueryTypes.SELECT }
-const format = 'YYYY-MM-DD HH:mm:ss'
 let timeSql = `
   SELECT url,
   count(url) as count,
@@ -36,7 +35,7 @@ let timeSql = `
 const Average = {
   start: async function () {
     consola.info('~~~~~~ average schedule start ~~~~~~')
-    this.now = Moment().format(format)
+    this.now = DateTime.now()
     await this.eachAppIds('start')
   },
   delete: async function () {
@@ -57,13 +56,10 @@ const Average = {
       }
     })
   },
-  getBeforeTime: function (num, type) {
-    return Moment().subtract(num, type).format(format)
-  },
   getTimeAverage: async function (id) {
     for (let key in Time) {
-      const current = Moment().format(format)
-      let sql = String.sub(timeSql, { tableName: `url_${id}`, before: this.getBeforeTime(Time[key].num, Time[key].type), now: current })
+      const current = DateTime.now()
+      let sql = String.sub(timeSql, { tableName: `url_${id}`, before: DateTime.transferTypeToTime(key), now: current })
       let timeAvgList = await mysql.query(sql, queryObj)
       timeAvgList.length && timeAvgList.map((o) => {
         o.date_type = key

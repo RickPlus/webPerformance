@@ -5,7 +5,8 @@ export default {
     page: 1,
     perPage: 20,
     urlAverageList: [],
-    urlAverageListCount: 0
+    urlAverageListCount: 0,
+    currentUrlAverageDetail: null
   },
   actions: {
     async getUrlAverageList ({ commit, state, rootState }) {
@@ -22,7 +23,20 @@ export default {
         this._vm.$Message.error(message)
       }
     },
-    async setCurrentPage ({ commit }, index) {
+    async getUrlAverageDetail ({ commit, rootState }, id) {
+      let { code, data, message } = await this.$axios.get(`/api/url_average/${id}`, {
+        appId: rootState.auth.default_app_id
+      })
+      if (code === 1) {
+        commit('SET_CURRENT_URL_AVERAGE_DETAIL', data)
+      } else {
+        this._vm.$Message.error(message)
+      }
+    },
+    setCurrentUrlAverageDetail ({ commit }, data) {
+      commit('SET_CURRENT_URL_AVERAGE_DETAIL', data)
+    },
+    setCurrentPage ({ commit }, index) {
       commit('SET_CURRENT_PAGE', index)
     }
   },
@@ -35,6 +49,9 @@ export default {
     },
     SET_CURRENT_PAGE (state, is) {
       state.page = is
+    },
+    SET_CURRENT_URL_AVERAGE_DETAIL (state, is) {
+      state.currentUrlAverageDetail = is
     }
   }
 }

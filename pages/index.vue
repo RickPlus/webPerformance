@@ -13,8 +13,18 @@ export default {
     return {
       tableType: [
         {
-          title: 'URL(平均)',
-          key: 'url'
+          title: 'URL',
+          key: 'url',
+          render: (h, params) => {
+            return h('div', [
+              h('a', {
+                attrs: {
+                  target: '_blank',
+                  href: params.row.url
+                }
+              }, params.row.url)]
+            )
+          }
         },
         {
           title: '调用次数',
@@ -51,25 +61,49 @@ export default {
         {
           title: 'DOM READY 时间',
           key: 'dom_ready_time'
+        },
+        {
+          title: '详细',
+          key: 'action',
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  type: 'info',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.goDetail(params)
+                  }
+                }
+              }, '查看')]
+            )
+          }
         }
       ]
     }
   },
   async fetch ({ store }) {
-    await store.dispatch('average/getUrlAverageList')
+    await store.dispatch('url/getUrlAverageList')
   },
   computed: {
-    ...mapState('average', ['urlAverageList', 'urlAverageListCount', 'perPage', 'page'])
+    ...mapState('url', ['urlAverageList', 'urlAverageListCount', 'perPage', 'page'])
   },
   components: {},
   methods: {
     changePage (index) {
-      this.$store.dispatch('average/setCurrentPage', index)
-      this.$store.dispatch('average/getUrlAverageList')
+      this.$store.dispatch('url/setCurrentPage', index)
+      this.$store.dispatch('url/getUrlAverageList')
+    },
+    goDetail (params) {
+      this.$store.dispatch('url/setCurrentUrlAverageDetail', this.urlAverageList.find(o => o.id === params.row.id))
+      console.log(this.$store)
+      this.$router.push(`/average/${params.row.id}`)
     }
   }
 }
 </script>
-
-<style>
-</style>

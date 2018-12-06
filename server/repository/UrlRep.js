@@ -29,6 +29,18 @@ class UrlRep {
   }
 
   @TryCatch
+  async findAfterTimeByUrl (time, url) {
+    return await this.Model.findAll({
+      where: {
+        visit_time: {
+          $gt: time
+        },
+        url: url
+      }
+    })
+  }
+
+  @TryCatch
   async createOne (obj) {
     return await this.Model.create(obj)
   }

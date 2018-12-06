@@ -1,0 +1,20 @@
+export default {
+  'load_time': '加载时间',
+  'white_time': '白屏时间',
+  'dns_time': 'dns解析时间',
+  'tcp_time': 'tcp握手时间',
+  'dom_time': 'dom加载时间',
+  'redirect_time': '重定向时间',
+  'resource_time': '资源加载时间',
+  'dom_ready_time': 'dom ready 时间',
+  'duration': '总耗时',
+  'wait_ttfb_time': '等待时间',
+  'download_time': '下载时间',
+  'block_time': '堵塞时间',
+  'size': '大小',
+  'type': '类型',
+  'device_type': '设备类型',
+  'os_name': '系统名称',
+  'browser_name': '浏览器名称',
+  'browser_version': '浏览器版本'
+}
