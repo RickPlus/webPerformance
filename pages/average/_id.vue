@@ -1,5 +1,8 @@
 <template>
   <section>
+    <h2>
+      路径：{{currentUrlAverageDetail.url}}
+    </h2>
     <Row class="url-average-detail-row">
       <Col v-for="(val, key) in currentUrlAverageDetail" :key="key" span="5" v-if="urlAverageDetailParam[key]">
         <detail-card :key="key" :title="urlAverageDetailParam[key]" :value="val" ></detail-card>

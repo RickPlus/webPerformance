@@ -5,6 +5,6 @@ schedule.scheduleJob('*/30 * * * *', async function () {
   await Average.start()
 })
 
-schedule.scheduleJob('*/50 * * * *', async function () {
+schedule.scheduleJob('0 0 11 * * *', async function () {
   await Average.delete()
 })

@@ -1,6 +1,6 @@
 <template>
   <Card class="url-average-detail-card">
-    <div style="text-align:center">
+    <div>
       <h3>{{title}}</h3>
       <p>
         {{value}}ms
@@ -28,3 +28,8 @@ export default {
   }
 }
 </script>
+<style lang="less">
+  .url-average-detail-card{
+    text-align: center;
+  }
+</style>
