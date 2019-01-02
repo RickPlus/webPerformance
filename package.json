@@ -38,14 +38,14 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.5",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.26.0",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-decorators": "^7.2.3",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/register": "^7.0.0",
+    "@babel/runtime": "^7.2.0",
+    "@babel/runtime-corejs2": "^7.2.0",
+    "babel-eslint": "^10.0.1",
     "eslint": "^5.0.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-loader": "^2.0.0",
@@ -59,6 +59,7 @@
     "nodemon": "^1.11.0",
     "prettier": "1.14.3",
     "sequelize-auto": "^0.4.29",
+    "webpack": "^4.28.3",
     "webpack-cli": "^3.1.2"
   }
 }
