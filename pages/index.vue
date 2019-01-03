@@ -1,16 +1,22 @@
 <template>
   <section>
-    <Table border :columns="tableType" :data="urlAverageList"></Table>
+    <select-time :current="type" @changeTime="changeTime"></select-time>
+    <Table border :loading="listLoading" :columns="tableType" :data="urlAverageList"></Table>
     <Page :total="urlAverageListCount" :current="page" :page-size="perPage" v-if="urlAverageListCount > perPage" @on-change="changePage"></Page>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import SelectTime from '~/components/layout/SelectTime'
 
 export default {
+  components: {
+    SelectTime
+  },
   data () {
     return {
+      current: 1,
       tableType: [
         {
           title: 'URL',
@@ -91,9 +97,8 @@ export default {
     await store.dispatch('url/getUrlAverageList')
   },
   computed: {
-    ...mapState('url', ['urlAverageList', 'urlAverageListCount', 'perPage', 'page'])
+    ...mapState('url', ['urlAverageList', 'urlAverageListCount', 'listLoading', 'perPage', 'page', 'type'])
   },
-  components: {},
   methods: {
     changePage (index) {
       this.$store.dispatch('url/setCurrentPage', index)
@@ -102,7 +107,11 @@ export default {
     goDetail (params) {
       this.$store.dispatch('url/setCurrentUrlAverageDetail', this.urlAverageList.find(o => o.id === params.row.id))
       console.log(this.$store)
-      this.$router.push(`/average/${params.row.id}`)
+      this.$router.push(`/average/${params.row.id}?type=${this.type}`)
+    },
+    async changeTime (index) {
+      this.$store.dispatch('url/setCurrentType', index)
+      await this.$store.dispatch('url/getUrlAverageList')
     }
   }
 }
