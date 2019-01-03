@@ -4,7 +4,7 @@ import UrlResourceRep from '@repository/UrlResourceRep'
 import Param from '@/utils/server/esum/Param'
 
 @Controller({ prefix: '/open' })
-export default class MonitorController {
+class MonitorController {
   @Request({ url: '/monitor', method: Method.POST })
   async hello (ctx) {
     if (ctx.request.header.origin) {
@@ -27,3 +27,5 @@ export default class MonitorController {
     ctx.state.data = 'success'
   }
 }
+
+export default MonitorController

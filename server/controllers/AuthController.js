@@ -5,7 +5,7 @@ import Message from '@/utils/server/esum/Message'
 import UserRep from '@repository/UserRep'
 
 @Controller({ prefix: '/open' })
-export default class AuthController {
+class AuthController {
   @Request({ url: '/login', method: Method.POST })
   async hello (ctx) {
     let userInfo = ctx.request.body
@@ -17,3 +17,5 @@ export default class AuthController {
     }
   }
 }
+
+export default AuthController

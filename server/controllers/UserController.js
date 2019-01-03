@@ -2,7 +2,7 @@ import { Controller, Method, Request } from '@/utils/server/decorator'
 import UserRep from '@repository/UserRep'
 
 @Controller({ prefix: '/api/user' })
-export default class UserController {
+class UserController {
   @Request({ url: '/current', method: Method.POST })
   async detail (ctx) {
     ctx.state.data = ctx.$currentUser
@@ -14,3 +14,5 @@ export default class UserController {
     ctx.state.data = await UserRep.updateById(id, ctx.request.body)
   }
 }
+
+export default UserController

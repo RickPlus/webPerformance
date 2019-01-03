@@ -4,7 +4,7 @@ import UserRep from '@repository/UserRep'
 import UUID from 'uuid/v1'
 
 @Controller({ prefix: '/api/settings' })
-export default class SettingsController {
+class SettingsController {
   @Request({ url: '/appId', method: Method.GET })
   async appId (ctx) {
     let currentUser = ctx.$currentUser
@@ -38,3 +38,5 @@ export default class SettingsController {
     ctx.state.data = await AppIdRep.updateById(id, ctx.request.body)
   }
 }
+
+export default SettingsController
