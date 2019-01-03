@@ -10,22 +10,22 @@ const PERFORMANCE_MONITOR = {
     this.getResourceTime()
   },
   getPerformanceTime: function () {
-    this.performanceTime = window.performance.getEntriesByType('navigation')[0]
+    this.performanceTime = window.performance.timing
     this.resourceTime = window.performance.getEntriesByType('resource')
     this.getPageTime()
   },
   getPageTime: function () {
-    let { startTime, responseStart, loadEventEnd, domainLookupEnd, domainLookupStart, connectEnd, connectStart, domContentLoadedEventEnd, redirectEnd, redirectStart, responseEnd, domComplete } = this.performanceTime
+    let { navigationStart, responseStart, fetchStart, domainLookupEnd, domainLookupStart, connectEnd, connectStart, domLoading, redirectEnd, redirectStart, responseEnd, domComplete } = this.performanceTime
     this.pageTime = {
       u: window.location.origin + window.location.pathname,
-      lt: Number.toDecimal2(loadEventEnd - startTime),
-      wt: Number.toDecimal2(responseStart - startTime),
+      lt: Number.toDecimal2(domComplete - fetchStart),
+      wt: Number.toDecimal2(responseStart - navigationStart),
       dt: Number.toDecimal2(domainLookupEnd - domainLookupStart),
       tt: Number.toDecimal2(connectEnd - connectStart),
-      dmt: Number.toDecimal2(domContentLoadedEventEnd - startTime),
+      dmt: Number.toDecimal2(domComplete - domLoading),
       rdt: Number.toDecimal2(redirectEnd - redirectStart),
       rst: Number.toDecimal2(responseEnd - responseStart),
-      drt: Number.toDecimal2(domComplete - startTime)
+      drt: Number.toDecimal2(domComplete - navigationStart)
     }
   },
   getResourceTime: function () {
