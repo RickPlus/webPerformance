@@ -72,22 +72,20 @@ export default {
           title: '详细',
           key: 'action',
           render: (h, params) => {
-            return h('div', [
-              h('Button', {
-                props: {
-                  type: 'info',
-                  size: 'small'
-                },
-                style: {
-                  marginRight: '5px'
-                },
-                on: {
-                  click: () => {
-                    this.goDetail(params)
-                  }
+            return h('Button', {
+              props: {
+                type: 'info',
+                size: 'small'
+              },
+              style: {
+                marginRight: '5px'
+              },
+              on: {
+                click: () => {
+                  this.goDetail(params)
                 }
-              }, '查看')]
-            )
+              }
+            }, '查看')
           }
         }
       ]
@@ -106,7 +104,7 @@ export default {
     },
     goDetail (params) {
       this.$store.dispatch('url/setCurrentUrlAverageDetail', this.urlAverageList.find(o => o.id === params.row.id))
-      console.log(this.$store)
+      this.$store.dispatch('url/setCurrentUrlAverageDetailList', null)
       this.$router.push(`/average/${params.row.id}?type=${this.type}`)
     },
     async changeTime (index) {

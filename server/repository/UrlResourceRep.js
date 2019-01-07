@@ -24,6 +24,13 @@ class UrlResourceRep {
   }
 
   @TryCatch
+  async findListByUrlId (id) {
+    return await this.Model.findAll({
+      where: { url_id: id }
+    })
+  }
+
+  @TryCatch
   async findAll () {
     return await this.Model.findAll()
   }
