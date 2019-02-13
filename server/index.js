@@ -3,6 +3,12 @@ const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const S = require('../ensure')
+
+if (process.env.NODE_ENV === 'development') {
+  process.env.PORT = S.PORT
+  process.env.HOST = S.HOST
+}
 
 const moduleAlias = require('module-alias')
 moduleAlias.addAliases(require('../alias').resolve.alias)
@@ -12,6 +18,7 @@ const routes = require('./routes')
 const Response = require('./middlewares/Response')
 
 const app = new Koa()
+
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 

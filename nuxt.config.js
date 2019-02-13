@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const { PROXY } = require('./ensure')
 
 module.exports = {
   mode: 'universal',
@@ -32,7 +33,8 @@ module.exports = {
   plugins: [
     { src: '~plugins/axios', ssr: true },
     { src: '~plugins/iview', ssr: true },
-    { src: '~plugins/client', ssr: false }
+    { src: '~plugins/client', ssr: false },
+    { src: '~plugins/filters', ssr: false }
   ],
 
   /*
@@ -46,8 +48,10 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
+    proxy: true
     // See https://github.com/nuxt-community/axios-module#options
   },
+  proxy: PROXY,
 
   /*
   ** Build configuration

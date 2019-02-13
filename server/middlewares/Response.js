@@ -65,6 +65,8 @@ module.exports = async (ctx, next) => {
     if (url.includes('/api')) {
       // 用户验证
       const token = ctx.header.authorization // 格式：Bearer token
+      const appId = ctx.header.appid
+      ctx.$appId = appId
       if (!token) {
         unLogin(ctx)
       } else {

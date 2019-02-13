@@ -36,7 +36,10 @@ class UrlRep {
           $gt: time
         },
         url: url
-      }
+      },
+      order: [
+        ['visit_time', 'DESC']
+      ]
     })
   }
 

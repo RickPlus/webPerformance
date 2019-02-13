@@ -7,8 +7,7 @@ class UrlResourceController {
   @Request({ url: '/:id', method: Method.GET })
   async getUrlResource (ctx) {
     let { id } = ctx.params
-    let { appId } = ctx.query
-    ctx.state.data = await UrlResourceRep(`url_resource_${appId.slice(0, 8)}`).findListByUrlId(id)
+    ctx.state.data = await UrlResourceRep(`url_resource_${ctx.$appId.slice(0, 8)}`).findListByUrlId(id)
   }
 }
 

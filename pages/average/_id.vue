@@ -8,7 +8,11 @@
         <detail-card :key="key" :title="urlAverageDetailParam[key]" :value="val" ></detail-card>
       </Col>
     </Row>
-    <Table border :columns="tableType" :data="currentUrlAverageDetailList"></Table>
+    <Table border :columns="tableType" :data="currentUrlAverageDetailList">
+      <template slot-scope="{ row }" slot="visit_time">
+        <span>{{row.visit_time | formatDate('YYYY-MM-DD hh:mm:ss')}}</span>
+      </template>
+    </Table>
   </section>
 </template>
 
@@ -76,12 +80,8 @@ export default {
         },
         {
           title: '访问时间',
-          key: 'visit_time',
-          render: (h, params) => {
-            return h('div', [
-              h('span', {}, params.row.visit_time)]
-            )
-          }
+          // key: 'visit_time',
+          slot: 'visit_time'
         },
         {
           title: '查看',

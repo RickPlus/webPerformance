@@ -7,7 +7,10 @@ export default ({ $axios, redirect, req, store, route }) => {
   $axios.interceptors.request.use(
     config => {
       if (store.state.auth.token) {
-        config.headers.authorization = `Bearer ${store.state.auth.token}`
+        config.headers.Authorization = `Bearer ${store.state.auth.token}`
+      }
+      if (store.state.auth.default_app_id) {
+        config.headers.AppId = store.state.auth.default_app_id
       }
       config.timeout = 10000
       return config
