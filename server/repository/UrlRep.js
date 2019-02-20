@@ -29,7 +29,7 @@ class UrlRep {
   }
 
   @TryCatch
-  async findAfterTimeByUrl (condition) {
+  async findByPagination (condition) {
     return await this.Model.findAndCountAll(condition)
   }
 

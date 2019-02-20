@@ -7,12 +7,10 @@ export default {
   actions: {
     async getUrlResource ({ commit, state, rootState }, id) {
       commit('SET_LIST_LOADING', true)
-      let { code, data, message } = await this.$axios.get(`/api/url_resource/${id}`)
+      let { code, data } = await this.$axios.get(`/api/url_resource/${id}`)
       commit('SET_LIST_LOADING', false)
       if (code === 1) {
         commit('SET_RESOURCE_LIST', data)
-      } else {
-        this._vm.$Message.error(message)
       }
     }
   },

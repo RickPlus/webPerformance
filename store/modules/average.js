@@ -16,7 +16,7 @@ export default {
   actions: {
     async getUrlAverageList ({ commit, state, rootState }) {
       commit('SET_LIST_LOADING', true)
-      let { code, data, message } = await this.$axios.get('/api/url_average', {
+      let { code, data } = await this.$axios.get('/api/url_average', {
         type: state.type,
         page: state.page,
         perPage: state.perPage
@@ -25,20 +25,16 @@ export default {
       if (code === 1) {
         commit('SET_URL_AVERAGE_LIST', data.rows)
         commit('SET_URL_AVERAGE_LIST_COUNT', data.count)
-      } else {
-        this._vm.$Message.error(message)
       }
     },
     async getUrlAverageDetail ({ commit, rootState }, id) {
-      let { code, data, message } = await this.$axios.get(`/api/url_average/${id}`)
+      let { code, data } = await this.$axios.get(`/api/url_average/${id}`)
       if (code === 1) {
         commit('SET_CURRENT_URL_AVERAGE_DETAIL', data)
-      } else {
-        this._vm.$Message.error(message)
       }
     },
     async getUrlAverageDetailList ({ commit, rootState, state }, { id, type }) {
-      let { code, data, message } = await this.$axios.get(`/api/url_average/${id}/list`, {
+      let { code, data } = await this.$axios.get(`/api/url_average/${id}/list`, {
         type: type,
         page: state.currentUrlAverageDetailListPage,
         perPage: state.currentUrlAverageDetailListPerPage
@@ -46,8 +42,6 @@ export default {
       if (code === 1) {
         commit('SET_CURRENT_URL_AVERAGE_DETAIL_LIST', data.rows)
         commit('SET_CURRENT_URL_AVERAGE_DETAIL_LIST_COUNT', data.count)
-      } else {
-        this._vm.$Message.error(message)
       }
     },
     setCurrentUrlAverageDetail ({ commit }, data) {

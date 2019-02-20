@@ -32,6 +32,12 @@ export default ({ $axios, redirect, req, store, route }) => {
         })
         return false
       }
+      if (data && data.code === 0 && process.browser && store) {
+        store._vm.$notify({
+          message: data.message || '操作失败，请重试',
+          type: 'warning'
+        })
+      }
       return data
     },
     error => {

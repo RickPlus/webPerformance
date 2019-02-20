@@ -5,27 +5,21 @@ export default {
   },
   actions: {
     async getAppIdTableList ({ commit }) {
-      let { code, data, message } = await this.$axios.get('/api/settings/appId')
+      let { code, data } = await this.$axios.get('/api/settings/appId')
       if (code === 1) {
         commit('SET_APP_ID_TABLE_LIST', data)
-      } else {
-        this._vm.$Message.error(message)
       }
     },
     async addAppId ({ commit }, params) {
-      let { code, data, message } = await this.$axios.post('/api/settings/appId', params)
+      let { code, data } = await this.$axios.post('/api/settings/appId', params)
       if (code === 1) {
         commit('SET_APP_ID_TABLE_LIST_PUSH', data)
-      } else {
-        this._vm.$Message.error(message)
       }
     },
     async modifyAppId ({ commit }, { id, desc }) {
-      let { code, message } = await this.$axios.put(`/api/settings/appId/${id}`, { desc })
+      let { code } = await this.$axios.put(`/api/settings/appId/${id}`, { desc })
       if (code === 1) {
         commit('SET_APP_ID_INFO', { id, desc })
-      } else {
-        this._vm.$Message.error(message)
       }
     }
   },

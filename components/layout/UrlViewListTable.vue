@@ -3,7 +3,7 @@
 -->
 <template>
   <section class="url-view-list-table">
-    <Table border :columns="tableType" :data="list">
+    <Table border :columns="tableType" :data="list" :loading="loading">
       <template slot-scope="{ row }" slot="visit_time">
         <span>{{row.visit_time | formatDate('YYYY-MM-DD hh:mm:ss')}}</span>
       </template>
@@ -106,6 +106,10 @@ export default {
           perPage: 0
         }
       }
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

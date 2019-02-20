@@ -43,7 +43,7 @@ class UrlAverageController {
         ['visit_time', 'DESC']
       ]
     }
-    ctx.state.data = await UrlRep(`url_${ctx.$appId.slice(0, 8)}`).findAfterTimeByUrl(condition)
+    ctx.state.data = await UrlRep(`url_${ctx.$appId.slice(0, 8)}`).findByPagination(condition)
   }
 }
 

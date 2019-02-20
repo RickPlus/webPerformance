@@ -4,8 +4,8 @@
       路径：{{currentUrlAverageDetail.url}}
     </h2>
     <Row class="url-average-detail-row">
-      <Col v-for="(val, key) in currentUrlAverageDetail" :key="key" span="5" v-if="urlAverageDetailParam[key]">
-        <detail-card :key="key" :title="urlAverageDetailParam[key]" :value="val" ></detail-card>
+      <Col v-for="(val, key) in currentUrlAverageDetail" :key="key" span="5" v-if="UrlAverageDetailParam[key]">
+        <detail-card :key="key" :title="UrlAverageDetailParam[key]" :value="val" ></detail-card>
       </Col>
     </Row>
     <url-view-list-table :list="currentUrlAverageDetailList" :pageInfo="{count: currentUrlAverageDetailListCount, page: currentUrlAverageDetailListPage, perPage: currentUrlAverageDetailListPerPage}" @on-change="changePage"/>
@@ -26,7 +26,7 @@ export default {
   },
   data () {
     return {
-      urlAverageDetailParam: UrlAverageDetailParam
+      UrlAverageDetailParam
     }
   },
   async fetch ({ store, params, query }) {

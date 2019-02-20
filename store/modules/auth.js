@@ -8,11 +8,9 @@ export default {
   },
   actions: {
     async login ({ commit }, params) {
-      let { code, data, message } = await this.$axios.post('/open/login', params)
+      let { code, data } = await this.$axios.post('/open/login', params)
       if (code === 1) {
         commit('SET_TOKEN', data)
-      } else {
-        this._vm.$Message.error(message)
       }
     },
     async getCurrentUserInfo ({ commit }) {
