@@ -92,24 +92,24 @@ export default {
     }
   },
   async fetch ({ store }) {
-    await store.dispatch('url/getUrlAverageList')
+    await store.dispatch('average/getUrlAverageList')
   },
   computed: {
-    ...mapState('url', ['urlAverageList', 'urlAverageListCount', 'listLoading', 'perPage', 'page', 'type'])
+    ...mapState('average', ['urlAverageList', 'urlAverageListCount', 'listLoading', 'perPage', 'page', 'type'])
   },
   methods: {
     changePage (index) {
-      this.$store.dispatch('url/setCurrentPage', index)
-      this.$store.dispatch('url/getUrlAverageList')
+      this.$store.dispatch('average/setCurrentPage', index)
+      this.$store.dispatch('average/getUrlAverageList')
     },
     goDetail (params) {
-      this.$store.dispatch('url/setCurrentUrlAverageDetail', this.urlAverageList.find(o => o.id === params.row.id))
-      this.$store.dispatch('url/setCurrentUrlAverageDetailList', null)
+      this.$store.dispatch('average/setCurrentUrlAverageDetail', this.urlAverageList.find(o => o.id === params.row.id))
+      this.$store.dispatch('average/setCurrentUrlAverageDetailList', null)
       this.$router.push(`/average/${params.row.id}?type=${this.type}`)
     },
     async changeTime (index) {
-      this.$store.dispatch('url/setCurrentType', index)
-      await this.$store.dispatch('url/getUrlAverageList')
+      this.$store.dispatch('average/setCurrentType', index)
+      await this.$store.dispatch('average/getUrlAverageList')
     }
   }
 }

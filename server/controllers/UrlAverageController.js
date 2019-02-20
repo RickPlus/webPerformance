@@ -16,7 +16,6 @@ class UrlAverageController {
         date_type: +type
       }
     }
-    console.log(ctx.$appId)
     ctx.state.data = await UrlAverageRep(`url_average_${ctx.$appId.slice(0, 8)}`).findByPagination(condition)
   }
 
@@ -29,9 +28,22 @@ class UrlAverageController {
   @Request({ url: '/:id/list', method: Method.GET })
   async getUrlAverageDetailList (ctx) {
     let { id } = ctx.params
-    let { type } = ctx.query
+    let { type, perPage, page } = ctx.query
     let averageItem = await UrlAverageRep(`url_average_${ctx.$appId.slice(0, 8)}`).findById(id)
-    ctx.state.data = await UrlRep(`url_${ctx.$appId.slice(0, 8)}`).findAfterTimeByUrl(DateTime.transferTypeToTime(type), averageItem.url)
+    let condition = {
+      limit: +perPage,
+      offset: +perPage * (+page - 1),
+      where: {
+        visit_time: {
+          $gt: DateTime.transferTypeToTime(type)
+        },
+        url: averageItem.url
+      },
+      order: [
+        ['visit_time', 'DESC']
+      ]
+    }
+    ctx.state.data = await UrlRep(`url_${ctx.$appId.slice(0, 8)}`).findAfterTimeByUrl(condition)
   }
 }
 

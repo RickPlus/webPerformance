@@ -3,6 +3,11 @@ import UrlRep from '@repository/UrlRep'
 import UrlResourceRep from '@repository/UrlResourceRep'
 import Param from '@/utils/server/esum/Param'
 
+/*
+*  t: p 页面
+*     a ajax
+*     e error
+* */
 @Controller({ prefix: '/open' })
 class MonitorController {
   @Request({ url: '/monitor', method: Method.POST })
@@ -17,13 +22,16 @@ class MonitorController {
       }
       return o
     }
-    let { a, ai, pt, rl } = ctx.request.body
-    let urlItem = await UrlRep(`url_${a.slice(0, 8)}`).createOne(objectKeyMap({ ...ai, ...pt }))
-    let resourceArr = []
-    rl.forEach((o) => {
-      resourceArr.push(Object.assign(objectKeyMap(o), { url_id: urlItem.id }))
-    })
-    await UrlResourceRep(`url_resource_${a.slice(0, 8)}`).bulkCreate(resourceArr)
+    let { t } = ctx.request.body
+    if (t === 'p') {
+      let { a, ai, pt, rl } = ctx.request.body
+      let urlItem = await UrlRep(`url_${a.slice(0, 8)}`).createOne(objectKeyMap({ ...ai, ...pt }))
+      let resourceArr = []
+      rl.forEach((o) => {
+        resourceArr.push(Object.assign(objectKeyMap(o), { url_id: urlItem.id }))
+      })
+      resourceArr.length && await UrlResourceRep(`url_resource_${a.slice(0, 8)}`).bulkCreate(resourceArr)
+    }
     ctx.state.data = 'success'
   }
 }

@@ -29,18 +29,8 @@ class UrlRep {
   }
 
   @TryCatch
-  async findAfterTimeByUrl (time, url) {
-    return await this.Model.findAll({
-      where: {
-        visit_time: {
-          $gt: time
-        },
-        url: url
-      },
-      order: [
-        ['visit_time', 'DESC']
-      ]
-    })
+  async findAfterTimeByUrl (condition) {
+    return await this.Model.findAndCountAll(condition)
   }
 
   @TryCatch

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './modules/auth'
 import settings from './modules/settings'
-import url from './modules/url'
+import average from './modules/average'
 import resource from './modules/resource'
 import Cookie from '@/utils/client/cookie'
 
@@ -31,7 +31,7 @@ const store = () => new Vuex.Store({
   modules: {
     auth,
     settings,
-    url,
+    average,
     resource
   }
 })

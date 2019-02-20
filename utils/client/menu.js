@@ -1,8 +1,13 @@
 export default [
   {
-    name: '页面访问',
+    name: '首页',
     path: '/',
-    icon: 'ios-body'
+    icon: 'md-rose'
+  },
+  {
+    name: '搜索页面',
+    path: '/search',
+    icon: 'md-rose'
   },
   // {
   //   name: '页面访问',
@@ -12,12 +17,12 @@ export default [
   {
     name: '系统设置',
     path: '',
-    icon: 'ios-settings',
+    icon: 'md-rose',
     children: [
       {
         name: 'appId',
         path: '/settings/appId',
-        icon: 'ios-appstore'
+        icon: 'md-rose'
       }
     ]
   }

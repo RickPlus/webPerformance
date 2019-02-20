@@ -34,7 +34,7 @@ module.exports = {
     { src: '~plugins/axios', ssr: true },
     { src: '~plugins/iview', ssr: true },
     { src: '~plugins/client', ssr: false },
-    { src: '~plugins/filters', ssr: false }
+    { src: '~plugins/filters', ssr: true }
   ],
 
   /*

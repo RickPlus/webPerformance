@@ -8,7 +8,10 @@ export default {
     urlAverageList: [],
     urlAverageListCount: 0,
     currentUrlAverageDetail: null,
-    currentUrlAverageDetailList: null
+    currentUrlAverageDetailList: null,
+    currentUrlAverageDetailListCount: 0,
+    currentUrlAverageDetailListPage: 1,
+    currentUrlAverageDetailListPerPage: 20
   },
   actions: {
     async getUrlAverageList ({ commit, state, rootState }) {
@@ -34,12 +37,15 @@ export default {
         this._vm.$Message.error(message)
       }
     },
-    async getUrlAverageDetailList ({ commit, rootState }, { id, type }) {
+    async getUrlAverageDetailList ({ commit, rootState, state }, { id, type }) {
       let { code, data, message } = await this.$axios.get(`/api/url_average/${id}/list`, {
-        type: type
+        type: type,
+        page: state.currentUrlAverageDetailListPage,
+        perPage: state.currentUrlAverageDetailListPerPage
       })
       if (code === 1) {
-        commit('SET_CURRENT_URL_AVERAGE_DETAIL_LIST', data)
+        commit('SET_CURRENT_URL_AVERAGE_DETAIL_LIST', data.rows)
+        commit('SET_CURRENT_URL_AVERAGE_DETAIL_LIST_COUNT', data.count)
       } else {
         this._vm.$Message.error(message)
       }
@@ -55,6 +61,9 @@ export default {
     },
     setCurrentType ({ commit }, index) {
       commit('SET_CURRENT_TYPE', index)
+    },
+    setCurrentUrlAverageDetailListPage ({ commit }, index) {
+      commit('SET_CURRENT_URL_AVERAGE_DETAIL_LIST_PAGE', index)
     }
   },
   mutations: {
@@ -78,6 +87,12 @@ export default {
     },
     SET_CURRENT_URL_AVERAGE_DETAIL_LIST (state, is) {
       state.currentUrlAverageDetailList = is
+    },
+    SET_CURRENT_URL_AVERAGE_DETAIL_LIST_PAGE (state, is) {
+      state.currentUrlAverageDetailListPage = is
+    },
+    SET_CURRENT_URL_AVERAGE_DETAIL_LIST_COUNT (state, is) {
+      state.currentUrlAverageDetailListCount = is
     }
   }
 }
