@@ -54,7 +54,7 @@ const PERFORMANCE_MONITOR = {
 /*
 * add callbacks for XMLHttpRequest send
 * */
-const addXMLRequestCallBack = (cb) => {
+const XML_REQUEST_CALLBACK = (cb) => {
   let XMLHttpRequest = window.XMLHttpRequest
   if (XMLHttpRequest.callbacks) {
     XMLHttpRequest.callbacks.push(cb)
@@ -80,7 +80,7 @@ const addXMLRequestCallBack = (cb) => {
 
 window.PERFORMANCE_MONITOR = window.PERFORMANCE_MONITOR ? Object.assign({}, window.PERFORMANCE_MONITOR, PERFORMANCE_MONITOR) : PERFORMANCE_MONITOR
 
-addXMLRequestCallBack(function (xhr) {
+XML_REQUEST_CALLBACK(function (xhr) {
   if (!xhr.responseURL.includes('/open/monitor')) {
     request({
       as: xhr.getResponseHeader('Content-Length') / 1000,
