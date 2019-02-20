@@ -3,6 +3,9 @@ import AgentInfo from '../utils/client/agent'
 import Number from '../utils/client/number'
 import Event from '../utils/client/event'
 
+/*
+* record agentInfo、pageTimeInfo、resourceTimeInfo
+* */
 const PERFORMANCE_MONITOR = {
   agentInfo: AgentInfo.init(),
   init: function () {
@@ -48,14 +51,59 @@ const PERFORMANCE_MONITOR = {
   }
 }
 
+/*
+* add callbacks for XMLHttpRequest send
+* */
+const addXMLRequestCallBack = (cb) => {
+  let XMLHttpRequest = window.XMLHttpRequest
+  if (XMLHttpRequest.callbacks) {
+    XMLHttpRequest.callbacks.push(cb)
+  } else {
+    XMLHttpRequest.callbacks = [cb]
+    let oldSend = XMLHttpRequest.prototype.send
+    XMLHttpRequest.prototype.send = function () {
+      let self = this
+      self.ajaxStartTime = +new Date()
+      oldSend.apply(self, arguments)
+      let inter = setInterval(() => {
+        if (self.readyState === 4 && self.status === 200) {
+          self.ajaxEndTime = +new Date()
+          clearInterval(inter)
+          for (let i = 0; i < XMLHttpRequest.callbacks.length; i++) {
+            XMLHttpRequest.callbacks[i](self)
+          }
+        }
+      }, 1)
+    }
+  }
+}
+
 window.PERFORMANCE_MONITOR = window.PERFORMANCE_MONITOR ? Object.assign({}, window.PERFORMANCE_MONITOR, PERFORMANCE_MONITOR) : PERFORMANCE_MONITOR
+
+addXMLRequestCallBack(function (xhr) {
+  if (!xhr.responseURL.includes('/open/monitor')) {
+    request({
+      as: xhr.getResponseHeader('Content-Length') / 1000,
+      at: xhr.ajaxEndTime - xhr.ajaxStartTime,
+      au: xhr.responseURL
+    }, 'a')
+  }
+})
+
 Event.add('load', function () {
   window.PERFORMANCE_MONITOR.init()
   let { agentInfo, pageTime, resourceList } = window.PERFORMANCE_MONITOR
-  window.PERFORMANCE_MONITOR_APPID && axios.post('/open/monitor', {
-    a: window.PERFORMANCE_MONITOR_APPID,
+  window.PERFORMANCE_MONITOR_APPID && request({
     ai: agentInfo,
     pt: pageTime,
     rl: resourceList
-  })
+  }, 'p')
 })
+
+/*
+* 目前为实时发送请求
+* TODO 后续改为储存到客户端，积攒到一定数量或时间及unload的时候一次发送
+* */
+let request = (data, type) => {
+  axios.post('/open/monitor', { ...data, t: type, a: window.PERFORMANCE_MONITOR_APPID })
+}
