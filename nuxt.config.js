@@ -1,8 +1,11 @@
 const pkg = require('./package')
-const { PROXY } = require('./ensure')
+const { PROXY, BASE_URL } = require('./ensure')
 
 module.exports = {
   mode: 'universal',
+  env: {
+    baseUrl: BASE_URL
+  },
 
   /*
   ** Headers of the page

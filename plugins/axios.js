@@ -12,6 +12,10 @@ export default ({ $axios, redirect, req, store, route }) => {
       if (store.state.auth.default_app_id) {
         config.headers.AppId = store.state.auth.default_app_id
       }
+      if (process.server) {
+        config.baseURL = process.env.baseUrl
+        console.info(`【${new Date().toLocaleString()}】【request】-> ${config.url}`)
+      }
       config.timeout = 10000
       return config
     }
@@ -33,9 +37,8 @@ export default ({ $axios, redirect, req, store, route }) => {
         return false
       }
       if (data && data.code === 0 && process.browser && store) {
-        store._vm.$notify({
-          message: data.message || '操作失败，请重试',
-          type: 'warning'
+        store._vm.$Message.error({
+          content: data.message || '操作失败，请重试'
         })
       }
       return data

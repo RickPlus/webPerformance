@@ -1,20 +1,20 @@
 const Event = {
-  add: function (name, fn) {
-    if (window.addEventListener) {
-      window.addEventListener(name, fn, false)
-    } else if (window.attachEvent) {
-      window.attachEvent(`on${name}`, fn)
+  add: function (node = window, name, fn, stage = false) {
+    if (node.addEventListener) {
+      node.addEventListener(name, fn, stage)
+    } else if (node.attachEvent) {
+      node.attachEvent(`on${name}`, fn)
     } else {
-      window[`on${name}`] = fn
+      node[`on${name}`] = fn
     }
   },
-  remove: function (name, fn) {
-    if (window.removeEventListener) {
-      window.removeEventListener(name, fn, false)
-    } else if (window.detachEvent) {
-      window.detachEvent(`on${name}`, fn)
+  remove: function (node, name, fn, stage = false) {
+    if (node.removeEventListener) {
+      node.removeEventListener(name, fn, stage)
+    } else if (node.detachEvent) {
+      node.detachEvent(`on${name}`, fn)
     } else {
-      delete window[`on${name}`]
+      delete node[`on${name}`]
     }
   }
 }
