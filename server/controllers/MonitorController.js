@@ -1,5 +1,7 @@
 import { Controller, Method, Request } from '@/utils/server/decorator'
 import UrlRep from '@repository/UrlRep'
+import AjaxRep from '@repository/AjaxRep'
+import ErrorRep from '@repository/ErrorRep'
 import UrlResourceRep from '@repository/UrlResourceRep'
 import Param from '@/utils/server/esum/Param'
 
@@ -31,6 +33,12 @@ class MonitorController {
         resourceArr.push(Object.assign(objectKeyMap(o), { url_id: urlItem.id }))
       })
       resourceArr.length && await UrlResourceRep(`url_resource_${a.slice(0, 8)}`).bulkCreate(resourceArr)
+    } else if (t === 'a') {
+      let { a, ar, am, as, d, au, ap, u } = ctx.request.body
+      await AjaxRep(`ajax_${a.slice(0, 8)}`).createOne(objectKeyMap({ ar, am, as, d, au, ap, u }))
+    } else if (t === 'e') {
+      let { a, el, ec, em, es, eu, u } = ctx.request.body
+      await ErrorRep(`error_${a.slice(0, 8)}`).createOne(objectKeyMap({ el, ec, em, es, eu, u }))
     }
     ctx.state.data = 'success'
   }

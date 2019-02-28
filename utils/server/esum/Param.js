@@ -17,5 +17,17 @@ export default {
   dvt: 'device_type', // 设备类型
   on: 'os_name', // 系统名称
   bn: 'browser_name', // 浏览器名称
-  bv: 'browser_version' // 浏览器版本
+  bv: 'browser_version', // 浏览器版本
+  // ajax
+  ar: 'status', // ajax status
+  as: 'size', // ajax size
+  am: 'method', // ajax method
+  ap: 'params', // ajax params
+  au: 'request_url', // ajax url
+  // error
+  el: 'line_no', // line no
+  ec: 'col_no', // col no
+  em: 'message', // error message
+  es: 'stack', // error stack
+  eu: 'error_url' // error url
 }
