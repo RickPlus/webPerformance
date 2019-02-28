@@ -41,7 +41,6 @@ const ConsoleError = () => {
 }
 
 const OrganizeError = (error) => {
-  console.log(error)
   if (error && error.stack && error.message) {
     let info = error.stack.match(/\(([^)]*)\)/)[1]
     let nums = info.match(/\d+/g)
