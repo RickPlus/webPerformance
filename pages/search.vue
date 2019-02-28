@@ -5,7 +5,7 @@
         <Input type="text" v-model="formInline.url" placeholder="url"></Input>
       </FormItem>
       <FormItem class="search-type">
-        <Select v-model="formInline.type">
+        <Select v-model="formInline.type" @on-change="changeType">
           <Option v-for="(item, index) in SearchUrlSelectType" :key="index" :value="index">{{item}}</Option>
         </Select>
       </FormItem>
@@ -13,16 +13,22 @@
         <Button type="primary" @click="search">搜索</Button>
       </FormItem>
     </Form>
-    <url-view-list-table v-if="formInline.type === 'url'" :loading="listLoading" :list="list" :page-info="{ page, perPage, count }" @on-change="changePage"></url-view-list-table>
+    <url-view-list-table v-if="formInline.type === 'url'" :loading="listLoading" :list="list" :page-info="{ page, perPage, count }" @on-change="changePage" />
+    <ajax-list-table v-if="formInline.type === 'ajax'" :loading="listLoading" :list="list" :page-info="{ page, perPage, count }" @on-change="changePage" />
+    <error-list-table v-if="formInline.type === 'error'" :loading="listLoading" :list="list" :page-info="{ page, perPage, count }" @on-change="changePage" />
   </section>
 </template>
 <script>
 import { mapState } from 'vuex'
 import SearchUrlSelectType from '@/utils/client/esum/SearchUrlSelectType'
 import UrlViewListTable from '~/components/layout/UrlViewListTable'
+import AjaxListTable from '~/components/layout/AjaxListTable'
+import ErrorListTable from '~/components/layout/ErrorListTable'
 export default {
   components: {
-    UrlViewListTable
+    UrlViewListTable,
+    AjaxListTable,
+    ErrorListTable
   },
   data () {
     return {
@@ -60,6 +66,10 @@ export default {
     },
     async getList () {
       this.formInline.url && await this.$store.dispatch('search/getList')
+    },
+    changeType (type) {
+      this.$store.dispatch('search/setCurrentSearchType', type)
+      this.getList()
     }
   }
 }
