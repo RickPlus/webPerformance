@@ -46,17 +46,20 @@ export default {
     ...mapState('search', ['listLoading', 'list', 'page', 'perPage', 'count'])
   },
   methods: {
-    async search () {
+    search () {
       let { dispatch } = this.$store
       dispatch('search/setCurrentPage', 1)
       dispatch('search/setCurrentSearchUrl', this.formInline.url)
       dispatch('search/setCurrentSearchType', this.formInline.type)
-      await dispatch('search/getList')
+      this.getList()
     },
-    async changePage (index) {
+    changePage (index) {
       let { dispatch } = this.$store
       dispatch('search/setCurrentPage', index)
-      await dispatch('search/getList')
+      this.getList()
+    },
+    async getList () {
+      this.formInline.url && await this.$store.dispatch('search/getList')
     }
   }
 }

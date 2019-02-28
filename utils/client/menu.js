@@ -9,6 +9,11 @@ export default [
     path: '/search',
     icon: 'md-rose'
   },
+  {
+    name: 'ajax请求',
+    path: '/ajax',
+    icon: 'md-rose'
+  },
   // {
   //   name: '页面访问',
   //   path: '/visit',

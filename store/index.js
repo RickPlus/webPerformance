@@ -5,6 +5,7 @@ import settings from './modules/settings'
 import average from './modules/average'
 import search from './modules/search'
 import resource from './modules/resource'
+import ajax from './modules/ajax'
 import Cookie from '@/utils/client/cookie'
 
 Vue.use(Vuex)
@@ -34,7 +35,8 @@ const store = () => new Vuex.Store({
     settings,
     average,
     search,
-    resource
+    resource,
+    ajax
   }
 })
 
