@@ -14,6 +14,11 @@ export default [
     path: '/ajax',
     icon: 'md-rose'
   },
+  {
+    name: '执行报错',
+    path: '/error',
+    icon: 'md-rose'
+  },
   // {
   //   name: '页面访问',
   //   path: '/visit',
