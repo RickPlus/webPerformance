@@ -9,12 +9,23 @@
       </template>
     </Table>
     <Page :total="pageInfo.count" :current="pageInfo.page" :page-size="pageInfo.perPage" v-if="pageInfo.count > pageInfo.perPage" @on-change="changePage" />
+    <Drawer :width="800" title="Resource List" :closable="false" v-model="isShowResourceList">
+      <section>
+        <resource-process v-for="(item, index) in resourceList" :key="index" :url="item.url" :block="item.block_time + item.dns_time + item.tcp_time " :wait="item.wait_ttfb_time" :download="item.download_time" :duration="item.duration"/>
+      </section>
+    </Drawer>
   </section>
 </template>
 <script>
+import { mapState } from 'vuex'
+import ResourceProcess from '~/components/layout/ResourceProcess'
 export default {
+  components: {
+    ResourceProcess
+  },
   data () {
     return {
+      isShowResourceList: false,
       tableType: [
         {
           title: '加载时间',
@@ -83,7 +94,7 @@ export default {
               },
               on: {
                 click: () => {
-                  this.goDetail(params)
+                  this.getResourceList(params)
                 }
               }
             }, '详情')
@@ -112,12 +123,16 @@ export default {
       default: false
     }
   },
+  computed: {
+    ...mapState('resource', ['listLoading', 'resourceList'])
+  },
   methods: {
     changePage (index) {
       this.$emit('on-change', index)
     },
-    goDetail (params) {
-      this.$router.push(`/url/${params.row.id}`)
+    async getResourceList (params) {
+      this.isShowResourceList = true
+      await this.$store.dispatch('resource/getUrlResource', params.row.id)
     }
   }
 }

@@ -17,7 +17,7 @@ export default {
     return {
       tableType: [
         {
-          title: '访问url',
+          title: '页面地址',
           key: 'url'
         },
         {
