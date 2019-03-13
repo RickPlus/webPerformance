@@ -32,6 +32,7 @@ export default {
       if (this.token) {
         window.Cookie.set('token', this.token)
         await this.$store.dispatch('auth/getCurrentUserInfo')
+        await this.$store.dispatch('settings/getAppIdTableList')
         this.$router.push(this.$route.query.r || '/')
       }
     }
