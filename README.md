@@ -100,3 +100,5 @@
 
 - [ ] 报错增加sourcemap支持
 
+- [ ] 新增appid 需要添加对应table 
+
