@@ -111,7 +111,7 @@
 
 ![ajax](https://raw.githubusercontent.com/RickPlus/webPerformance/master/static/preview/3.png)
 
-![ajax](https://raw.githubusercontent.com/RickPlus/webPerformance/master/static/preview/3.1.png)
+![ajax](https://raw.githubusercontent.com/RickPlus/webPerformance/master/static/preview/3_1.png)
 
 ![报错](https://raw.githubusercontent.com/RickPlus/webPerformance/master/static/preview/4.png)
 
