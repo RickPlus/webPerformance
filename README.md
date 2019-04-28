@@ -105,4 +105,13 @@
 
 ## 页面预览
 
+![首页](https://raw.githubusercontent.com/RickPlus/webPerformance/master/static/preview/1.png)
+
+![搜索](https://raw.githubusercontent.com/RickPlus/webPerformance/master/static/preview/2.png)
+
+![ajax](https://raw.githubusercontent.com/RickPlus/webPerformance/master/static/preview/3.png)
+
+![报错](https://raw.githubusercontent.com/RickPlus/webPerformance/master/static/preview/4.png)
+
+![appid](https://raw.githubusercontent.com/RickPlus/webPerformance/master/static/preview/5.png)
 
